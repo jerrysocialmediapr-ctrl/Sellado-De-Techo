@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Power Solar Roofing – Sellado de Techos PR</title>
+<link rel="icon" type="image/png" href="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png">
+
+<!-- Open Graph / Social Sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Power Solar Roofing – Sellado de Techos PR">
+<meta property="og:description" content="Expertos en sellado de techo y roofing en Puerto Rico. Protege tu hogar con la mejor tecnología.">
+<meta property="og:image" content="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png">
+<meta property="og:url" content="https://jerrysocialmediapr-ctrl.github.io/Sellado-De-Techo/">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Power Solar Roofing – Sellado de Techos PR">
+<meta name="twitter:description" content="Expertos en sellado de techo y roofing en Puerto Rico.">
+<meta name="twitter:image" content="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -102,6 +118,73 @@
   .nav-logo em {
     color: var(--orange);
     font-style: normal;
+  }
+
+  /* LOGO SHATTER ANIMATION */
+  .logo-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .logo-img-wrapper {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    overflow: visible;
+  }
+
+  .logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.3s;
+  }
+
+  .shatter-piece {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url("https://i.postimg.cc/PfDjG87n/logo-roofing-service.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Define 4 pieces/shards */
+  .shatter-piece:nth-child(2) { clip-path: polygon(0 0, 50% 0, 50% 50%, 0 50%); }
+  .shatter-piece:nth-child(3) { clip-path: polygon(50% 0, 100% 0, 100% 50%, 50% 50%); }
+  .shatter-piece:nth-child(4) { clip-path: polygon(0 50%, 50% 50%, 50% 100%, 0 100%); }
+  .shatter-piece:nth-child(5) { clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%); }
+
+  .logo-container:hover .logo-img {
+    opacity: 0;
+  }
+
+  .logo-container:hover .shatter-piece {
+    opacity: 1;
+  }
+
+  .logo-container:hover .shatter-piece:nth-child(2) { transform: translate(-15px, -15px) rotate(-15deg); }
+  .logo-container:hover .shatter-piece:nth-child(3) { transform: translate(15px, -15px) rotate(15deg); }
+  .logo-container:hover .shatter-piece:nth-child(4) { transform: translate(-15px, 15px) rotate(10deg); }
+  .logo-container:hover .shatter-piece:nth-child(5) { transform: translate(15px, 15px) rotate(-10deg); }
+
+  /* GRIYA (CRACK) ANIMATION SCRIPTED TRIGGER */
+  @keyframes logoCrack {
+    0% { transform: scale(1); filter: none; }
+    10% { transform: scale(0.98); filter: drop-shadow(0 0 8px #D42B2B); }
+    20% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+
+  .logo-img.cracking {
+    animation: logoCrack 0.5s ease-out;
   }
 
   .nav-links {
@@ -1039,7 +1122,16 @@
 <body>
 
 <nav>
-  <div class="nav-logo">POWER<em>☀</em> SOLAR ROOFING</div>
+  <div class="logo-container" onclick="location.reload()">
+    <div class="logo-img-wrapper">
+      <img src="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png" alt="Logo" class="logo-img">
+      <div class="shatter-piece"></div>
+      <div class="shatter-piece"></div>
+      <div class="shatter-piece"></div>
+      <div class="shatter-piece"></div>
+    </div>
+    <div class="nav-logo">ROOFING <em>SERVICE</em></div>
+  </div>
   <ul class="nav-links">
     <li><a href="#proceso">Proceso</a></li>
     <li><a href="#planes">Planes</a></li>
@@ -1377,7 +1469,16 @@
 </section>
 
 <footer>
-  <div class="logo">POWER<em>☀</em> SOLAR ROOFING</div>
+  <div class="logo-container" style="justify-content: flex-start;">
+    <div class="logo-img-wrapper" style="width: 40px; height: 40px;">
+      <img src="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png" alt="Logo" class="logo-img">
+      <div class="shatter-piece"></div>
+      <div class="shatter-piece"></div>
+      <div class="shatter-piece"></div>
+      <div class="shatter-piece"></div>
+    </div>
+    <div class="logo">ROOFING <em>SERVICE</em></div>
+  </div>
   <p>© 2025 Power Solar Roofing Services — Puerto Rico</p>
   <p style="color:var(--red);font-weight:700">¡CASO SELLADO!</p>
 </footer>
@@ -1466,6 +1567,23 @@ document.querySelectorAll('.step-box').forEach(step => {
     this.classList.add('active');
   });
 });
+
+// Trigger crack animation on logo periodically
+function triggerLogoCrack() {
+  const logos = document.querySelectorAll('.logo-img');
+  logos.forEach(logo => {
+    logo.classList.add('cracking');
+    setTimeout(() => {
+      logo.classList.remove('cracking');
+    }, 1000);
+  });
+}
+
+// Initial trigger after 3 seconds
+setTimeout(triggerLogoCrack, 3000);
+
+// Periodic trigger every 12 seconds
+setInterval(triggerLogoCrack, 12000);
 </script>
 </body>
 </html>
