@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power Solar Roofing – Sellado de Techos PR</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D42B2B;
+    --red-dark: #A01E1E;
+    --blue: #1A3A6B;
+    --blue-light: #2456A0;
+    --white: #FAFAF8;
+    --off-white: #F0EDEA;
+    --black: #0F0F0F;
+    --gray-light: #E8E5E0;
+    --gray: #9A9590;
+    --orange: #E8710A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* CRACK ANIMATION CSS */
+  @keyframes crackGrow {
+    from { stroke-dashoffset: 500; opacity: 0; }
+    to { stroke-dashoffset: 0; opacity: 1; }
+  }
+
+  @keyframes waterDrip {
+    0% { height: 0; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { height: 120px; opacity: 0; }
+  }
+
+  @keyframes splat {
+    0% { transform: scale(0) translateY(-10px); opacity: 0; }
+    50% { transform: scale(1.2) translateY(0); opacity: 1; }
+    100% { transform: scale(1) translateY(0); opacity: 0.6; }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes fillBar {
+    from { width: 0; }
+    to { width: var(--w); }
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+
+  .nav-logo em {
+    color: var(--orange);
+    font-style: normal;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: white; }
+
+  .nav-cta {
+    background: var(--red) !important;
+    color: white !important;
+    padding: 0.5rem 1.5rem !important;
+    font-weight: 700 !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    padding-top: 64px;
+  }
+
+  .hero-left {
+    padding: 5rem 3rem 5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 15%; bottom: 15%;
+    width: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    animation: slideInLeft 0.8s ease both;
+  }
+
+  .eyebrow-line {
+    width: 40px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  .eyebrow-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  .hero-headline {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    letter-spacing: 2px;
+    line-height: 0.95;
+    color: var(--white);
+    animation: slideInLeft 0.8s 0.15s ease both;
+  }
+
+  .hero-headline .big-word { display: block; }
+  .hero-headline .red-word { color: var(--red); display: block; }
+  .hero-headline .outline-word {
+    display: block;
+    -webkit-text-stroke: 2px rgba(255,255,255,0.5);
+    color: transparent;
+  }
+
+  .hero-desc {
+    color: rgba(255,255,255,0.5);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin: 2rem 0;
+    max-width: 420px;
+    font-weight: 300;
+    animation: slideInLeft 0.8s 0.3s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: slideInLeft 0.8s 0.45s ease both;
+  }
+
+  .btn-red {
+    background: var(--red);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-red::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .btn-red:hover::after { transform: scaleX(1); }
+  .btn-red:hover { background: var(--red-dark); }
+
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 1rem 2rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  .financing-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.8rem 1.2rem;
+    margin-top: 1.5rem;
+    animation: slideInLeft 0.8s 0.6s ease both;
+  }
+
+  .financing-tag .price {
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+    color: var(--orange);
+    letter-spacing: 1px;
+  }
+
+  .financing-tag .price-info {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+  }
+
+  /* HERO RIGHT — CRACK VISUAL */
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1A1A1A;
+    animation: slideInRight 1s ease both;
+  }
+
+  .roof-visual {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .roof-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+    position: absolute;
+    inset: 0;
+  }
+
+  .crack-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .crack-path {
+    fill: none;
+    stroke: rgba(150, 220, 255, 0.8);
+    stroke-width: 2;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: crackGrow 2s 1s ease forwards;
+    filter: drop-shadow(0 0 4px rgba(150,220,255,0.8));
+  }
+
+  .crack-path-2 {
+    fill: none;
+    stroke: rgba(150, 220, 255, 0.5);
+    stroke-width: 1;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: crackGrow 1.5s 1.5s ease forwards;
+  }
+
+  .crack-path-3 {
+    fill: none;
+    stroke: rgba(150, 220, 255, 0.4);
+    stroke-width: 1;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: crackGrow 1.2s 2s ease forwards;
+  }
+
+  .drop-container {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+  }
+
+  .drop {
+    position: absolute;
+    width: 4px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(to bottom, rgba(150,210,255,0.9), rgba(150,210,255,0.1));
+    animation: waterDrip linear infinite;
+    top: 0;
+    height: 0;
+    transform-origin: top;
+  }
+
+  .overlay-text {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 4rem;
+    color: rgba(255,255,255,0.06);
+    letter-spacing: 5px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    border: 5px solid rgba(232,113,10,0.7);
+    color: rgba(232,113,10,0.7);
+    padding: 0.8rem 2rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    animation: slideInUp 0.8s 2s ease both;
+    white-space: nowrap;
+    filter: url(#rough);
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--red);
+    padding: 0.9rem 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marqueeScroll 25s linear infinite;
+  }
+
+  .marquee-item {
+    padding: 0 3rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .marquee-dot {
+    width: 6px;
+    height: 6px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* PROCESS — HORIZONTAL */
+  .process-section {
+    background: var(--off-white);
+    padding: 6rem 4rem;
+    overflow: hidden;
+  }
+
+  .process-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .big-label {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--black);
+  }
+
+  .big-label span { color: var(--red); }
+
+  .steps-track {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .steps-track::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--gray-light);
+    z-index: 0;
+  }
+
+  .step-box {
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--gray-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    color: var(--gray);
+    margin-bottom: 1.2rem;
+    transition: all 0.4s;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-box.active .step-circle {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+  }
+
+  .step-box-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-box-desc {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* PLANES SECTION */
+  .planes-section {
+    padding: 6rem 4rem;
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .planes-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.8rem;
+  }
+
+  .planes-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 4rem;
+    color: var(--white);
+  }
+
+  .planes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .plan-col {
+    padding: 3rem 2rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.3s;
+  }
+
+  .plan-col:last-child { border-right: none; }
+  .plan-col:hover { background: rgba(255,255,255,0.03); }
+
+  .plan-col.highlight {
+    background: rgba(212, 43, 43, 0.1);
+    border-color: rgba(212,43,43,0.3);
+    position: relative;
+  }
+
+  .plan-tag {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .plan-name-big {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    line-height: 1;
+  }
+
+  .plan-price-big {
+    font-family: 'Anton', sans-serif;
+    font-size: 4.5rem;
+    color: var(--red);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  .plan-price-unit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 2rem;
+    margin-top: 0.3rem;
+  }
+
+  .plan-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 1.5rem 0;
+  }
+
+  .plan-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+
+  .plan-feature::before {
+    content: '—';
+    color: var(--red);
+    flex-shrink: 0;
+    font-weight: bold;
+  }
+
+  .plan-feature.included {
+    color: rgba(255,255,255,0.85);
+  }
+
+  .plan-feature.included::before { content: '✓'; }
+
+  .plan-guarantee {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.05);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+  }
+
+  .plan-guarantee strong {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--orange);
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 2px;
+    margin-bottom: 0.2rem;
+  }
+
+  /* BENEFITS SECTION */
+  .benefits-section {
+    padding: 6rem 4rem;
+    background: var(--white);
+  }
+
+  .benefits-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .benefits-left {}
+
+  .benefits-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--black);
+    margin-bottom: 2.5rem;
+  }
+
+  .benefits-title span { color: var(--red); }
+
+  .benefit-bar {
+    margin-bottom: 1.8rem;
+  }
+
+  .bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .bar-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  .bar-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--red);
+  }
+
+  .bar-track {
+    height: 6px;
+    background: var(--gray-light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--blue), var(--red));
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .benefits-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .ben-box {
+    border: 1px solid var(--gray-light);
+    padding: 1.5rem;
+    transition: all 0.3s;
+  }
+
+  .ben-box:hover {
+    border-color: var(--red);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(212, 43, 43, 0.1);
+  }
+
+  .ben-box-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .ben-box-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 0.4rem;
+  }
+
+  .ben-box-desc {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--blue);
+    padding: 6rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-section::before {
+    content: 'COTIZA';
+    position: absolute;
+    top: -1rem;
+    right: -2rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 18rem;
+    color: rgba(255,255,255,0.03);
+    letter-spacing: 10px;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 5rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-promo-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+  }
+
+  .contact-big-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-big-title .outline {
+    -webkit-text-stroke: 2px rgba(255,255,255,0.4);
+    color: transparent;
+    display: block;
+  }
+
+  .contact-left p {
+    color: rgba(255,255,255,0.5);
+    line-height: 1.8;
+    font-size: 0.95rem;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+
+  .trust-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+  }
+
+  .trust-icon {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+
+  /* FORM DARK */
+  .form-dark {
+    background: rgba(0,0,0,0.2);
+    padding: 3rem;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .form-dark-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: white;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--red);
+    padding-bottom: 1rem;
+  }
+
+  .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .fg {
+    margin-bottom: 1.2rem;
+  }
+
+  .fg label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.4rem;
+  }
+
+  .fg input, .fg select {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    padding: 0.85rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    border-radius: 0;
+  }
+
+  .fg input::placeholder { color: rgba(255,255,255,0.25); }
+  .fg input:focus, .fg select:focus { border-color: var(--red); }
+
+  .pueblo-rel { position: relative; }
+
+  .pueblo-drop2 {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: #0D1F3C;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-top: none;
+    max-height: 180px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+  }
+
+  .pueblo-drop2.open { display: block; }
+
+  .pd-opt {
+    padding: 0.65rem 1rem;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .pd-opt:hover { background: rgba(212,43,43,0.2); color: white; }
+
+  .pueblo-drop2::-webkit-scrollbar { width: 3px; }
+  .pueblo-drop2::-webkit-scrollbar-thumb { background: var(--red); }
+
+  .submit-red {
+    width: 100%;
+    background: var(--red);
+    color: white;
+    border: none;
+    padding: 1.1rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .submit-red:hover { background: #B82020; }
+
+  .submit-red::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.4s;
+  }
+
+  .submit-red:hover::before { left: 100%; }
+
+  .privacy-note {
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
+    margin-top: 1rem;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .form-success2 {
+    display: none;
+    text-align: center;
+    padding: 3rem;
+    color: white;
+  }
+
+  .form-success2.show { display: block; }
+
+  .form-success2 .big-stamp {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    display: inline-block;
+    border: 4px solid var(--orange);
+    padding: 0.5rem 2rem;
+    color: var(--orange);
+    transform: rotate(-5deg);
+    margin-bottom: 1.5rem;
+  }
+
+  .form-success2 p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    padding: 2.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-top: 2px solid var(--red);
+  }
+
+  footer .logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+
+  footer .logo em { color: var(--orange); font-style: normal; }
+  footer p { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
+
+  /* REVEAL */
+  .rev {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .rev.in { opacity: 1; transform: none; }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 50vw; }
+    .hero-left { padding: 3rem 1.5rem; }
+    .process-section, .planes-section, .benefits-section, .contact-section { padding: 4rem 1.5rem; }
+    .steps-track { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .steps-track::before { display: none; }
+    .planes-grid { grid-template-columns: 1fr; }
+    .plan-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .benefits-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .benefits-right { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .frow { grid-template-columns: 1fr; }
+    footer { flex-direction: column; padding: 2rem 1.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">POWER<em>☀</em> SOLAR ROOFING</div>
+  <ul class="nav-links">
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="#contacto" class="nav-cta">Cotizar Gratis</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Power Solar — Puerto Rico</div>
+    </div>
+
+    <h1 class="hero-headline">
+      <span class="big-word">SELLAMOS</span>
+      <span class="red-word">TU TECHO.</span>
+      <span class="outline-word">GARANTIZADO.</span>
+    </h1>
+
+    <p class="hero-desc">
+      Sellado profesional con silicón 100% Sherwin-Williams. Protección real contra filtraciones, grietas y empozamientos. Garantía de hasta 10 años.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-red">COTIZAR GRATIS →</a>
+      <a href="#proceso" class="btn-outline">VER PROCESO</a>
+    </div>
+
+    <div class="financing-tag">
+      <div>
+        <div class="price">$76</div>
+        <div style="font-size:0.7rem;color:rgba(255,255,255,0.35);font-family:'Space Mono',monospace">/MES</div>
+      </div>
+      <div class="price-info">
+        Financiamiento local aprobado rápido.<br>
+        Power Financial — Puerto Rico.
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="roof-visual">
+      <!-- Concrete texture background -->
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <defs>
+          <filter id="noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+            <feColorMatrix type="saturate" values="0"/>
+            <feBlend in="SourceGraphic" mode="multiply"/>
+          </filter>
+        </defs>
+        <rect width="100%" height="100%" fill="#2A2A2A" filter="url(#noise)" opacity="0.5"/>
+      </svg>
+
+      <!-- Animated cracks -->
+      <svg class="crack-svg" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <path class="crack-path" d="M200 0 L185 80 L225 180 L175 320 L220 500 L205 700 L185 800"/>
+        <path class="crack-path-2" d="M225 180 L290 210 L275 310 L320 380"/>
+        <path class="crack-path-3" d="M175 320 L120 360 L140 430"/>
+        <path class="crack-path" style="stroke:rgba(150,220,255,0.5);animation-delay:3s" d="M420 50 L400 150 L450 280 L410 450 L430 650"/>
+        <path class="crack-path-2" style="animation-delay:3.5s" d="M400 150 L340 190 L360 280"/>
+      </svg>
+
+      <!-- Water drops -->
+      <div class="drop-container">
+        <div class="drop" style="left:31%;width:5px;height:18px;animation-duration:2.2s;animation-delay:2.5s;top:28%"></div>
+        <div class="drop" style="left:37%;width:4px;height:14px;animation-duration:2.8s;animation-delay:3.2s;top:30%"></div>
+        <div class="drop" style="left:66%;width:6px;height:22px;animation-duration:2.5s;animation-delay:4s;top:23%"></div>
+        <div class="drop" style="left:68%;width:4px;height:16px;animation-duration:3s;animation-delay:4.8s;top:25%"></div>
+        <div class="drop" style="left:52%;width:5px;height:20px;animation-duration:2.7s;animation-delay:5.5s;top:15%"></div>
+      </div>
+
+      <!-- Stamp -->
+      <div class="stamp">CASO SELLADO</div>
+
+      <!-- Background text -->
+      <div class="overlay-text">FILTRACIÓN</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">SELLADO DE TECHOS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">SILICÓN 100% SHERWIN-WILLIAMS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">GARANTÍA 10 AÑOS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">FINANCIAMIENTO LOCAL <span class="marquee-dot"></span></div>
+    <div class="marquee-item">CASO SELLADO <span class="marquee-dot"></span></div>
+    <div class="marquee-item">POWER SOLAR PR <span class="marquee-dot"></span></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="marquee-item">SELLADO DE TECHOS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">SILICÓN 100% SHERWIN-WILLIAMS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">GARANTÍA 10 AÑOS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">FINANCIAMIENTO LOCAL <span class="marquee-dot"></span></div>
+    <div class="marquee-item">CASO SELLADO <span class="marquee-dot"></span></div>
+    <div class="marquee-item">POWER SOLAR PR <span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section class="process-section" id="proceso">
+  <div class="process-header">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:3px;color:var(--red);margin-bottom:0.5rem">CÓMO TRABAJAMOS</div>
+      <div class="big-label">PROCESO DE<br><span>SELLADO</span></div>
+    </div>
+    <p style="color:var(--gray);max-width:350px;font-size:0.95rem;line-height:1.8">6 pasos rigurosos que garantizan que tu techo quede protegido para siempre.</p>
+  </div>
+
+  <div class="steps-track">
+    <div class="step-box active rev">
+      <div class="step-circle">1</div>
+      <div class="step-box-title">Lavado</div>
+      <p class="step-box-desc">Limpieza completa de equipos y superficie del techo.</p>
+    </div>
+    <div class="step-box rev" style="transition-delay:0.1s">
+      <div class="step-circle">2</div>
+      <div class="step-box-title">Remoción</div>
+      <p class="step-box-desc">Identificación y remoción del sellador existente.</p>
+    </div>
+    <div class="step-box rev" style="transition-delay:0.2s">
+      <div class="step-circle">3</div>
+      <div class="step-box-title">Corrección</div>
+      <p class="step-box-desc">Reparación de grietas, empozamientos y drenajes.</p>
+    </div>
+    <div class="step-box rev" style="transition-delay:0.3s">
+      <div class="step-circle">4</div>
+      <div class="step-box-title">Primer</div>
+      <p class="step-box-desc">Aplicación de primer sobre toda la superficie.</p>
+    </div>
+    <div class="step-box rev" style="transition-delay:0.4s">
+      <div class="step-circle">5</div>
+      <div class="step-box-title">Silicone</div>
+      <p class="step-box-desc">Silicón a 30mm de espesor con aplicación precisa.</p>
+    </div>
+    <div class="step-box rev" style="transition-delay:0.5s">
+      <div class="step-circle">6</div>
+      <div class="step-box-title">Reinstalación</div>
+      <p class="step-box-desc">Reinstalación y validación del sistema solar al 100%.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section class="planes-section" id="planes">
+  <div class="planes-label">Elige tu Protección</div>
+  <div class="planes-title">PLANES DE<br>SELLADO</div>
+  <div class="planes-grid">
+    <div class="plan-col rev">
+      <div class="plan-brand">Danosa</div>
+      <div class="plan-name-big">DANOSA</div>
+      <div class="plan-price-big">— —</div>
+      <div class="plan-price-unit">Precio según área del techo</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature included">Garantía del fabricante</div>
+      <div class="plan-feature included">Sin restricciones de aplicación</div>
+      <div class="plan-feature">Mantenimiento solar: $550</div>
+      <div class="plan-feature">Mantenimiento cada 2 años</div>
+      <div class="plan-feature included">Visita técnica sin costo</div>
+      <div class="plan-guarantee"><strong>5 AÑOS</strong>Garantía mano de obra</div>
+    </div>
+
+    <div class="plan-col highlight rev" style="transition-delay:0.15s">
+      <div class="plan-tag">Más Popular</div>
+      <div class="plan-brand">Sherwin-Williams</div>
+      <div class="plan-name-big">SILICONE PREMIUM</div>
+      <div class="plan-price-big">$7</div>
+      <div class="plan-price-unit">por pie cuadrado · p²</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature included">Garantía de fabricante — de por vida</div>
+      <div class="plan-feature included">Visita técnica incluida</div>
+      <div class="plan-feature included">Resistente UV y todas las temperaturas</div>
+      <div class="plan-feature">Mantenimiento solar: $550</div>
+      <div class="plan-feature">No aplicable en áreas inclinadas</div>
+      <div class="plan-guarantee"><strong>10 AÑOS</strong>Garantía mano de obra</div>
+    </div>
+
+    <div class="plan-col rev" style="transition-delay:0.3s">
+      <div class="plan-brand">Sherwin-Williams</div>
+      <div class="plan-name-big">SILICONE EXECUTIVE</div>
+      <div class="plan-price-big">$8</div>
+      <div class="plan-price-unit">por pie cuadrado · p²</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature included">Todo lo de Premium incluido</div>
+      <div class="plan-feature included">Mantenimiento incluido en garantía</div>
+      <div class="plan-feature included">5 visitas de mantenimiento en 10 años</div>
+      <div class="plan-feature included">Limpieza solar incluida</div>
+      <div class="plan-feature included">Máxima protección total</div>
+      <div class="plan-guarantee"><strong>10 AÑOS</strong>Garantía + Mantenimiento</div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits-section" id="beneficios">
+  <div class="benefits-inner">
+    <div class="benefits-left rev">
+      <div style="font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:3px;color:var(--red);margin-bottom:0.8rem">POR QUÉ ELEGIRNOS</div>
+      <div class="benefits-title">BENEFICIOS DEL<br><span>SILICÓN</span></div>
+
+      <div class="benefit-bar">
+        <div class="bar-header">
+          <span class="bar-name">RESISTENCIA UV</span>
+          <span class="bar-val">100%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="100"></div></div>
+      </div>
+      <div class="benefit-bar">
+        <div class="bar-header">
+          <span class="bar-name">ADHESIÓN</span>
+          <span class="bar-val">98%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="98"></div></div>
+      </div>
+      <div class="benefit-bar">
+        <div class="bar-header">
+          <span class="bar-name">DURABILIDAD</span>
+          <span class="bar-val">95%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="95"></div></div>
+      </div>
+      <div class="benefit-bar">
+        <div class="bar-header">
+          <span class="bar-name">IMPERMEABILIDAD</span>
+          <span class="bar-val">100%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="100"></div></div>
+      </div>
+    </div>
+
+    <div class="benefits-right">
+      <div class="ben-box rev">
+        <div class="ben-box-icon">☀️</div>
+        <div class="ben-box-name">RESISTENTE UV</div>
+        <p class="ben-box-desc">Protección total contra rayos ultravioleta y todas las temperaturas.</p>
+      </div>
+      <div class="ben-box rev" style="transition-delay:0.1s">
+        <div class="ben-box-icon">💧</div>
+        <div class="ben-box-name">100% SILICONA</div>
+        <p class="ben-box-desc">Silicona pura para máxima impermeabilización y sellado.</p>
+      </div>
+      <div class="ben-box rev" style="transition-delay:0.2s">
+        <div class="ben-box-icon">🎨</div>
+        <div class="ben-box-name">UNA SOLA CAPA</div>
+        <p class="ben-box-desc">Aplicación eficiente en una sola capa con máximo rendimiento.</p>
+      </div>
+      <div class="ben-box rev" style="transition-delay:0.3s">
+        <div class="ben-box-icon">⏱️</div>
+        <div class="ben-box-name">DURADERO</div>
+        <p class="ben-box-desc">Rendimiento garantizado por años con mantenimiento mínimo.</p>
+      </div>
+      <div class="ben-box rev" style="transition-delay:0.4s">
+        <div class="ben-box-icon">🧱</div>
+        <div class="ben-box-name">ADHESIÓN TOTAL</div>
+        <p class="ben-box-desc">Se adhiere a la mayoría de los materiales para techos.</p>
+      </div>
+      <div class="ben-box rev" style="transition-delay:0.5s">
+        <div class="ben-box-icon">🧹</div>
+        <div class="ben-box-name">FÁCIL MANTENER</div>
+        <p class="ben-box-desc">Solo requiere lavado simple para mantener sus propiedades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contacto">
+  <div class="contact-grid">
+    <div class="contact-left rev">
+      <div class="contact-promo-tag">EMPIEZA HOY MISMO</div>
+      <div class="contact-big-title">
+        COTIZA<br>
+        <span class="outline">GRATIS.</span>
+      </div>
+      <p>Un técnico certificado visitará tu residencia sin costo. Te entregamos una cotización detallada. Sin compromisos. Aprobación rápida para tu financiamiento.</p>
+
+      <div class="trust-items">
+        <div class="trust-item">
+          <div class="trust-icon">✅</div>
+          <span>Visita técnica sin costo adicional</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">⚡</div>
+          <span>Respuesta en menos de 24 horas</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">💳</div>
+          <span>Financiamiento desde $76/mes — Power Financial</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🛡️</div>
+          <span>Garantía hasta 10 años en mano de obra</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-dark rev" style="transition-delay:0.2s">
+      <div id="form2-content">
+        <div class="form-dark-title">SOLICITAR COTIZACIÓN</div>
+        <form onsubmit="handleForm2(event)">
+          <div class="frow">
+            <div class="fg">
+              <label>Nombre</label>
+              <input type="text" placeholder="Tu nombre" required>
+            </div>
+            <div class="fg">
+              <label>Teléfono</label>
+              <input type="tel" placeholder="(787) 000-0000" required>
+            </div>
+          </div>
+          <div class="fg">
+            <label>Email</label>
+            <input type="email" placeholder="tu@email.com" required>
+          </div>
+          <div class="fg pueblo-rel">
+            <label>Pueblo</label>
+            <input type="text" id="p2-input" placeholder="Escribe las primeras 2 letras de tu pueblo..." autocomplete="off" required>
+            <input type="hidden" id="p2-value">
+            <div class="pueblo-drop2" id="p2-drop"></div>
+          </div>
+          <button type="submit" class="submit-red">SOLICITAR COTIZACIÓN GRATIS →</button>
+        </form>
+        <p class="privacy-note">🔒 Información confidencial — Sin spam</p>
+      </div>
+      <div class="form-success2" id="success2">
+        <div class="big-stamp">¡CASO SELLADO!</div>
+        <p>Tu solicitud fue recibida. Un técnico certificado te contactará en menos de 24 horas para coordinar tu visita gratuita.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">POWER<em>☀</em> SOLAR ROOFING</div>
+  <p>© 2025 Power Solar Roofing Services — Puerto Rico</p>
+  <p style="color:var(--red);font-weight:700">¡CASO SELLADO!</p>
+</footer>
+
+<script>
+// PUEBLO AUTOCOMPLETE 2
+const pueblos2 = [
+  "Adjuntas","Aguada","Aguadilla","Aguas Buenas","Aibonito","Añasco","Arecibo","Arroyo",
+  "Barceloneta","Barranquitas","Bayamón","Cabo Rojo","Caguas","Camuy","Canóvanas",
+  "Carolina","Cataño","Cayey","Ceiba","Ciales","Cidra","Coamo","Comerío","Corozal",
+  "Culebra","Dorado","Fajardo","Florida","Guánica","Guayama","Guayanilla","Guaynabo",
+  "Gurabo","Hatillo","Hormigueros","Humacao","Isabela","Jayuya","Juana Díaz","Juncos",
+  "Lajas","Lares","Las Marías","Las Piedras","Loíza","Luquillo","Manatí","Maricao",
+  "Maunabo","Mayagüez","Moca","Morovis","Naguabo","Naranjito","Orocovis","Patillas",
+  "Peñuelas","Ponce","Quebradillas","Rincón","Río Grande","Sabana Grande","Salinas",
+  "San Germán","San Juan","San Lorenzo","San Sebastián","Santa Isabel","Toa Alta",
+  "Toa Baja","Trujillo Alto","Utuado","Vega Alta","Vega Baja","Vieques","Villalba",
+  "Yabucoa","Yauco"
+];
+
+const p2input = document.getElementById('p2-input');
+const p2drop = document.getElementById('p2-drop');
+const p2val = document.getElementById('p2-value');
+
+p2input.addEventListener('input', function() {
+  const val = this.value.toLowerCase().trim();
+  p2drop.innerHTML = '';
+  if(val.length < 2) { p2drop.classList.remove('open'); return; }
+  const filtered = pueblos2.filter(p => p.toLowerCase().includes(val));
+  if(!filtered.length) { p2drop.classList.remove('open'); return; }
+  filtered.forEach(pueblo => {
+    const d = document.createElement('div');
+    d.className = 'pd-opt';
+    d.textContent = pueblo;
+    d.addEventListener('click', () => {
+      p2input.value = pueblo;
+      p2val.value = pueblo;
+      p2drop.classList.remove('open');
+    });
+    p2drop.appendChild(d);
+  });
+  p2drop.classList.add('open');
+});
+
+document.addEventListener('click', e => {
+  if(!e.target.closest('.pueblo-rel')) p2drop.classList.remove('open');
+});
+
+function handleForm2(e) {
+  e.preventDefault();
+  document.getElementById('form2-content').style.display = 'none';
+  document.getElementById('success2').classList.add('show');
+}
+
+// SCROLL REVEAL
+const revEls = document.querySelectorAll('.rev');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('in');
+      // Animate bars if present
+      e.target.querySelectorAll('.bar-fill').forEach(bar => {
+        const w = bar.dataset.width;
+        bar.style.width = w + '%';
+      });
+    }
+  });
+}, { threshold: 0.1 });
+revEls.forEach(el => obs.observe(el));
+
+// Also trigger bars for parent reveal
+document.querySelectorAll('.benefit-bar').forEach(bar => {
+  const fill = bar.querySelector('.bar-fill');
+  const obsBar = new IntersectionObserver(entries => {
+    if(entries[0].isIntersecting) {
+      fill.style.width = fill.dataset.width + '%';
+    }
+  }, { threshold: 0.5 });
+  obsBar.observe(bar);
+});
+
+// Step hover
+document.querySelectorAll('.step-box').forEach(step => {
+  step.addEventListener('mouseenter', function() {
+    document.querySelectorAll('.step-box').forEach(s => s.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
