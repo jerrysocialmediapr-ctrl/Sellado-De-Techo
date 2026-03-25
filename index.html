@@ -141,50 +141,63 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: opacity 0.3s;
   }
 
-  .shatter-piece {
+  /* LOOPING CRACK ANIMATION */
+  .logo-crack-wrapper {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    overflow: visible;
+  }
+
+  .logo-half {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     background-image: url("https://i.postimg.cc/PfDjG87n/logo-roofing-service.png");
     background-size: contain;
     background-repeat: no-repeat;
+    transition: transform 0.3s;
+  }
+
+  .logo-half.left {
+    clip-path: polygon(0 0, 48% 0, 52% 20%, 45% 40%, 55% 60%, 48% 80%, 52% 100%, 0 100%);
+    animation: crackLeft 3s infinite ease-in-out;
+  }
+
+  .logo-half.right {
+    clip-path: polygon(48% 0, 100% 0, 100% 100%, 52% 100%, 48% 80%, 55% 60%, 45% 40%, 52% 20%);
+    animation: crackRight 3s infinite ease-in-out;
+  }
+
+  @keyframes crackLeft {
+    0%, 100% { transform: translate(0, 0) rotate(0); }
+    50% { transform: translate(-5px, 0) rotate(-2deg); }
+  }
+
+  @keyframes crackRight {
+    0%, 100% { transform: translate(0, 0) rotate(0); }
+    50% { transform: translate(5px, 0) rotate(2deg); }
+  }
+
+  .logo-crack-line {
+    position: absolute;
+    top: 0; left: 50%;
+    width: 2px; height: 100%;
+    background: var(--red);
+    transform: translateX(-50%);
     opacity: 0;
-    pointer-events: none;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: opacity 0.3s;
+    z-index: 2;
+    filter: drop-shadow(0 0 5px var(--red));
+    animation: crackLineShow 3s infinite ease-in-out;
   }
 
-  /* Define 4 pieces/shards */
-  .shatter-piece:nth-child(2) { clip-path: polygon(0 0, 50% 0, 50% 50%, 0 50%); }
-  .shatter-piece:nth-child(3) { clip-path: polygon(50% 0, 100% 0, 100% 50%, 50% 50%); }
-  .shatter-piece:nth-child(4) { clip-path: polygon(0 50%, 50% 50%, 50% 100%, 0 100%); }
-  .shatter-piece:nth-child(5) { clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%); }
-
-  .logo-container:hover .logo-img {
-    opacity: 0;
-  }
-
-  .logo-container:hover .shatter-piece {
-    opacity: 1;
-  }
-
-  .logo-container:hover .shatter-piece:nth-child(2) { transform: translate(-15px, -15px) rotate(-15deg); }
-  .logo-container:hover .shatter-piece:nth-child(3) { transform: translate(15px, -15px) rotate(15deg); }
-  .logo-container:hover .shatter-piece:nth-child(4) { transform: translate(-15px, 15px) rotate(10deg); }
-  .logo-container:hover .shatter-piece:nth-child(5) { transform: translate(15px, 15px) rotate(-10deg); }
-
-  /* GRIYA (CRACK) ANIMATION SCRIPTED TRIGGER */
-  @keyframes logoCrack {
-    0% { transform: scale(1); filter: none; }
-    10% { transform: scale(0.98); filter: drop-shadow(0 0 8px #D42B2B); }
-    20% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-  }
-
-  .logo-img.cracking {
-    animation: logoCrack 0.5s ease-out;
+  @keyframes crackLineShow {
+    0%, 100% { opacity: 0; transform: translateX(-50%) scaleY(0); }
+    40%, 60% { opacity: 1; transform: translateX(-50%) scaleY(1); }
   }
 
   .nav-links {
@@ -1122,15 +1135,10 @@
 <body>
 
 <nav>
-  <div class="logo-container" onclick="location.reload()">
-    <div class="logo-img-wrapper">
-      <img src="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png" alt="Logo" class="logo-img">
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-    </div>
-    <div class="nav-logo">ROOFING <em>SERVICE</em></div>
+  <div class="logo-crack-wrapper" onclick="location.reload()">
+    <div class="logo-half left"></div>
+    <div class="logo-half right"></div>
+    <div class="logo-crack-line"></div>
   </div>
   <ul class="nav-links">
     <li><a href="#proceso">Proceso</a></li>
@@ -1469,15 +1477,10 @@
 </section>
 
 <footer>
-  <div class="logo-container" style="justify-content: flex-start;">
-    <div class="logo-img-wrapper" style="width: 40px; height: 40px;">
-      <img src="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png" alt="Logo" class="logo-img">
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-    </div>
-    <div class="logo">ROOFING <em>SERVICE</em></div>
+  <div class="logo-crack-wrapper" onclick="location.reload()" style="width: 50px; height: 50px;">
+    <div class="logo-half left"></div>
+    <div class="logo-half right"></div>
+    <div class="logo-crack-line"></div>
   </div>
   <p>© 2025 Power Solar Roofing Services — Puerto Rico</p>
   <p style="color:var(--red);font-weight:700">¡CASO SELLADO!</p>
@@ -1567,23 +1570,6 @@ document.querySelectorAll('.step-box').forEach(step => {
     this.classList.add('active');
   });
 });
-
-// Trigger crack animation on logo periodically
-function triggerLogoCrack() {
-  const logos = document.querySelectorAll('.logo-img');
-  logos.forEach(logo => {
-    logo.classList.add('cracking');
-    setTimeout(() => {
-      logo.classList.remove('cracking');
-    }, 1000);
-  });
-}
-
-// Initial trigger after 3 seconds
-setTimeout(triggerLogoCrack, 3000);
-
-// Periodic trigger every 12 seconds
-setInterval(triggerLogoCrack, 12000);
 </script>
 </body>
 </html>
