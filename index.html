@@ -3,964 +3,1044 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Power Solar Roofing – ¡Adiós a las Filtraciones!</title>
-<link rel="icon" type="image/png" href="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png">
-
-<!-- Open Graph / Social Sharing -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Power Solar Roofing – ¡Adiós a las Filtraciones!">
-<meta property="og:description" content="Expertos en sellado de techo y roofing en Puerto Rico. Protege tu hogar con la mejor tecnología.">
-<meta property="og:image" content="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png">
-<meta property="og:url" content="https://jerrysocialmediapr-ctrl.github.io/Sellado-De-Techo/">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Power Solar Roofing – ¡Adiós a las Filtraciones!">
-<meta name="twitter:description" content="Expertos en sellado de techo y roofing en Puerto Rico.">
-<meta name="twitter:image" content="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png">
-
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Power Solar Roofing – Sellado de Techos PR</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
+    --red: #D42B2B;
+    --red-dark: #A01E1E;
+    --blue: #1A3A6B;
+    --blue-light: #2456A0;
+    --white: #FAFAF8;
+    --off-white: #F0EDEA;
+    --black: #0F0F0F;
+    --gray-light: #E8E5E0;
+    --gray: #9A9590;
     --orange: #E8710A;
-    --blue-dark: #0A1628;
-    --blue-mid: #0D2B5E;
-    --blue-accent: #1565C0;
-    --white: #F5F5F0;
-    --gray: #8A9BB0;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { scroll-behavior: smooth; }
+
   body {
-    font-family: 'Barlow', sans-serif;
-    background: var(--blue-dark);
-    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
     overflow-x: hidden;
   }
 
-  /* RAIN CANVAS */
-  #rain-canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.35;
+  /* CRACK ANIMATION CSS */
+  @keyframes crackGrow {
+    from { stroke-dashoffset: 500; opacity: 0; }
+    to { stroke-dashoffset: 0; opacity: 1; }
   }
 
-  /* CRACK OVERLAY */
-  .crack-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none;
-    z-index: 1;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cpath d='M200 0 L180 80 L220 160 L160 300 L210 450 L190 600' stroke='%23ffffff' stroke-width='1.5' fill='none' opacity='0.08'/%3E%3Cpath d='M220 160 L280 200 L260 280' stroke='%23ffffff' stroke-width='1' fill='none' opacity='0.06'/%3E%3Cpath d='M600 100 L580 200 L640 320 L600 500' stroke='%23ffffff' stroke-width='1.5' fill='none' opacity='0.08'/%3E%3Cpath d='M580 200 L520 250 L540 350' stroke='%23ffffff' stroke-width='1' fill='none' opacity='0.06'/%3E%3Cpath d='M400 50 L420 150 L380 250 L410 400 L390 550' stroke='%23ffffff' stroke-width='1' fill='none' opacity='0.05'/%3E%3C/svg%3E");
-    background-size: cover;
+  @keyframes waterDrip {
+    0% { height: 0; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { height: 120px; opacity: 0; }
   }
 
-  /* LIGHTNING FLASH */
-  .lightning {
-    position: fixed;
-    inset: 0;
-    background: rgba(150, 200, 255, 0.15);
-    pointer-events: none;
-    z-index: 2;
-    opacity: 0;
-    animation: lightningFlash 8s infinite;
+  @keyframes splat {
+    0% { transform: scale(0) translateY(-10px); opacity: 0; }
+    50% { transform: scale(1.2) translateY(0); opacity: 1; }
+    100% { transform: scale(1) translateY(0); opacity: 0.6; }
   }
 
-  @keyframes lightningFlash {
-    0%, 95%, 100% { opacity: 0; }
-    96% { opacity: 1; }
-    97% { opacity: 0; }
-    98% { opacity: 0.7; }
-    99% { opacity: 0; }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-60px); }
+    to { opacity: 1; transform: translateX(0); }
   }
 
-  /* MAIN CONTENT */
-  .content { position: relative; z-index: 10; }
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes fillBar {
+    from { width: 0; }
+    to { width: var(--w); }
+  }
 
   /* NAV */
   nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    background: var(--black);
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 4rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    background: rgba(10, 22, 40, 0.7);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
   }
 
-  .logo-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 2px;
+  .nav-logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
     color: var(--white);
   }
 
-  .logo-text span { color: var(--orange); }
+  .nav-logo em {
+    color: var(--orange);
+    font-style: normal;
+  }
 
-  /* LOGO SHATTER ANIMATION */
-  .logo-container {
-    position: relative;
+  .nav-links {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .logo-img-wrapper {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    overflow: visible;
-  }
-
-  .logo-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: opacity 0.3s;
-  }
-
-  .shatter-piece {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-image: url("https://i.postimg.cc/PfDjG87n/logo-roofing-service.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  /* Define 4 pieces/shards */
-  .shatter-piece:nth-child(2) { clip-path: polygon(0 0, 50% 0, 50% 50%, 0 50%); }
-  .shatter-piece:nth-child(3) { clip-path: polygon(50% 0, 100% 0, 100% 50%, 50% 50%); }
-  .shatter-piece:nth-child(4) { clip-path: polygon(0 50%, 50% 50%, 50% 100%, 0 100%); }
-  .shatter-piece:nth-child(5) { clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%); }
-
-  .logo-container:hover .logo-img {
-    opacity: 0;
-  }
-
-  .logo-container:hover .shatter-piece {
-    opacity: 1;
-  }
-
-  .logo-container:hover .shatter-piece:nth-child(2) { transform: translate(-15px, -15px) rotate(-15deg); }
-  .logo-container:hover .shatter-piece:nth-child(3) { transform: translate(15px, -15px) rotate(15deg); }
-  .logo-container:hover .shatter-piece:nth-child(4) { transform: translate(-15px, 15px) rotate(10deg); }
-  .logo-container:hover .shatter-piece:nth-child(5) { transform: translate(15px, 15px) rotate(-10deg); }
-
-  /* GRIYA (CRACK) ANIMATION SCRIPTED TRIGGER */
-  @keyframes logoCrack {
-    0% { transform: scale(1); filter: none; }
-    10% { transform: scale(0.98); filter: drop-shadow(0 0 5px red); }
-    20% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-  }
-
-  .logo-img.cracking {
-    animation: logoCrack 0.5s ease-out;
-  }
-
-  nav ul {
+    gap: 2rem;
     list-style: none;
-    display: flex;
-    gap: 2.5rem;
   }
 
-  nav ul a {
-    color: var(--gray);
+  .nav-links a {
+    color: rgba(255,255,255,0.6);
     text-decoration: none;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: color 0.3s;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
   }
 
-  nav ul a:hover { color: var(--orange); }
+  .nav-links a:hover { color: white; }
 
   .nav-cta {
-    background: var(--orange);
+    background: var(--red) !important;
     color: white !important;
-    padding: 0.5rem 1.5rem;
-    border-radius: 2px;
+    padding: 0.5rem 1.5rem !important;
+    font-weight: 700 !important;
   }
 
   /* HERO */
   .hero {
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 6rem 4rem;
-    position: relative;
+    background: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     overflow: hidden;
+    padding-top: 64px;
   }
 
-  .hero::before {
+  .hero-left {
+    padding: 5rem 3rem 5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-left::after {
     content: '';
     position: absolute;
-    top: 0; right: -200px;
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(21, 101, 192, 0.3) 0%, transparent 70%);
-    pointer-events: none;
+    right: 0; top: 15%; bottom: 15%;
+    width: 1px;
+    background: rgba(255,255,255,0.1);
   }
 
-  .hero-content { max-width: 600px; }
-
-  .hero-badge {
-    display: inline-flex;
+  .eyebrow {
+    display: flex;
     align-items: center;
-    gap: 0.5rem;
-    background: rgba(232, 113, 10, 0.15);
-    border: 1px solid rgba(232, 113, 10, 0.4);
-    color: var(--orange);
-    padding: 0.4rem 1rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    animation: slideInLeft 0.8s ease both;
+  }
+
+  .eyebrow-line {
+    width: 40px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  .eyebrow-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    animation: fadeInDown 0.8s ease both;
+    color: var(--red);
   }
 
-  .pulse-dot {
-    width: 8px; height: 8px;
-    background: var(--orange);
-    border-radius: 50%;
-    animation: pulse 1.5s infinite;
-  }
-
-  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
-
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 9vw, 8rem);
+  .hero-headline {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    letter-spacing: 2px;
     line-height: 0.95;
-    letter-spacing: -1px;
-    animation: fadeInUp 1s ease 0.2s both;
+    color: var(--white);
+    animation: slideInLeft 0.8s 0.15s ease both;
   }
 
-  .hero h1 .accent { color: var(--orange); display: block; }
+  .hero-headline .big-word { display: block; }
+  .hero-headline .red-word { color: var(--red); display: block; }
+  .hero-headline .outline-word {
+    display: block;
+    -webkit-text-stroke: 2px rgba(255,255,255,0.5);
+    color: transparent;
+  }
 
-  .hero-sub {
-    font-size: 1.2rem;
-    color: var(--gray);
-    margin: 1.5rem 0 2.5rem;
-    max-width: 480px;
-    line-height: 1.7;
+  .hero-desc {
+    color: rgba(255,255,255,0.5);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin: 2rem 0;
+    max-width: 420px;
     font-weight: 300;
-    animation: fadeInUp 1s ease 0.4s both;
+    animation: slideInLeft 0.8s 0.3s ease both;
   }
 
-  .hero-cta-group {
+  .hero-actions {
     display: flex;
     gap: 1rem;
-    align-items: center;
     flex-wrap: wrap;
-    animation: fadeInUp 1s ease 0.6s both;
+    animation: slideInLeft 0.8s 0.45s ease both;
   }
 
-  .btn-primary {
-    background: var(--orange);
+  .btn-red {
+    background: var(--red);
     color: white;
-    padding: 1rem 2.5rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
     border: none;
+    padding: 1rem 2.5rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
     cursor: pointer;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-    transition: all 0.3s;
     text-decoration: none;
     display: inline-block;
-  }
-
-  .btn-primary:hover {
-    background: #FF8C00;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(232, 113, 10, 0.4);
-  }
-
-  .btn-ghost {
-    color: var(--white);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .btn-ghost:hover { color: var(--orange); }
-  .btn-ghost::before { content: '▶'; font-size: 0.7rem; }
-
-  /* WATER DRIP ANIMATION */
-  .drip-container {
-    position: absolute;
-    right: 5%;
-    top: 15%;
-    width: 400px;
-    height: 500px;
-    pointer-events: none;
-  }
-
-  .drip {
-    position: absolute;
-    background: linear-gradient(to bottom, rgba(100, 160, 255, 0.6), rgba(100, 160, 255, 0));
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    animation: drip-fall linear infinite;
-  }
-
-  @keyframes drip-fall {
-    0% { transform: translateY(-20px) scaleY(0.5); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 0.8; }
-    100% { transform: translateY(500px) scaleY(1.2); opacity: 0; }
-  }
-
-  .crack-visual {
-    position: absolute;
-    right: 3%;
-    top: 10%;
-    width: 45%;
-    max-width: 550px;
-    animation: fadeInRight 1.2s ease 0.3s both;
-  }
-
-  /* STATS BAR */
-  .stats-bar {
-    background: rgba(255,255,255,0.04);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 2rem 4rem;
-    display: flex;
-    justify-content: space-around;
-    gap: 2rem;
+    transition: all 0.2s;
     position: relative;
     overflow: hidden;
   }
 
-  .stat-item {
-    text-align: center;
-    animation: fadeInUp 0.8s ease both;
-  }
-
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.5rem;
-    color: var(--orange);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.85rem;
-    color: var(--gray);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 0.3rem;
-  }
-
-  /* SECTIONS */
-  section { padding: 5rem 4rem; }
-
-  .section-tag {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 1rem;
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
-    line-height: 1;
-  }
-
-  .section-desc {
-    color: var(--gray);
-    max-width: 500px;
-    line-height: 1.8;
-    font-weight: 300;
-  }
-
-  /* PROCESO */
-  .proceso-section {
-    background: rgba(0,0,0,0.3);
-  }
-
-  .proceso-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-
-  .proceso-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 2rem;
-    position: relative;
-    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
-    transition: all 0.3s;
-    cursor: default;
-  }
-
-  .proceso-card:hover {
-    background: rgba(232, 113, 10, 0.08);
-    border-color: rgba(232, 113, 10, 0.3);
-    transform: translateY(-4px);
-  }
-
-  .step-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 4rem;
-    color: rgba(232, 113, 10, 0.2);
-    line-height: 1;
+  .btn-red::after {
+    content: '';
     position: absolute;
-    top: 1rem; right: 1.5rem;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transition: transform 0.3s;
   }
 
-  .step-icon {
+  .btn-red:hover::after { transform: scaleX(1); }
+  .btn-red:hover { background: var(--red-dark); }
+
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 1rem 2rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  .financing-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.8rem 1.2rem;
+    margin-top: 1.5rem;
+    animation: slideInLeft 0.8s 0.6s ease both;
+  }
+
+  .financing-tag .price {
+    font-family: 'Anton', sans-serif;
     font-size: 2rem;
-    margin-bottom: 1rem;
+    color: var(--orange);
+    letter-spacing: 1px;
   }
 
-  .step-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
+  .financing-tag .price-info {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+  }
+
+  /* HERO RIGHT — CRACK VISUAL */
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1A1A1A;
+    animation: slideInRight 1s ease both;
+  }
+
+  .roof-visual {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .roof-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+    position: absolute;
+    inset: 0;
+  }
+
+  .crack-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .crack-path {
+    fill: none;
+    stroke: rgba(150, 220, 255, 0.8);
+    stroke-width: 2;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: crackGrow 2s 1s ease forwards;
+    filter: drop-shadow(0 0 4px rgba(150,220,255,0.8));
+  }
+
+  .crack-path-2 {
+    fill: none;
+    stroke: rgba(150, 220, 255, 0.5);
+    stroke-width: 1;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: crackGrow 1.5s 1.5s ease forwards;
+  }
+
+  .crack-path-3 {
+    fill: none;
+    stroke: rgba(150, 220, 255, 0.4);
+    stroke-width: 1;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: crackGrow 1.2s 2s ease forwards;
+  }
+
+  .drop-container {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+  }
+
+  .drop {
+    position: absolute;
+    width: 4px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(to bottom, rgba(150,210,255,0.9), rgba(150,210,255,0.1));
+    animation: waterDrip linear infinite;
+    top: 0;
+    height: 0;
+    transform-origin: top;
+  }
+
+  .overlay-text {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 4rem;
+    color: rgba(255,255,255,0.06);
+    letter-spacing: 5px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    border: 5px solid rgba(232,113,10,0.7);
+    color: rgba(232,113,10,0.7);
+    padding: 0.8rem 2rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    animation: slideInUp 0.8s 2s ease both;
+    white-space: nowrap;
+    filter: url(#rough);
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--red);
+    padding: 0.9rem 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marqueeScroll 25s linear infinite;
+  }
+
+  .marquee-item {
+    padding: 0 3rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    color: white;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .marquee-dot {
+    width: 6px;
+    height: 6px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* PROCESS — HORIZONTAL */
+  .process-section {
+    background: var(--off-white);
+    padding: 6rem 4rem;
+    overflow: hidden;
+  }
+
+  .process-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .big-label {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--black);
+  }
+
+  .big-label span { color: var(--red); }
+
+  .steps-track {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .steps-track::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--gray-light);
+    z-index: 0;
+  }
+
+  .step-box {
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--gray-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    color: var(--gray);
+    margin-bottom: 1.2rem;
+    transition: all 0.4s;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-box.active .step-circle {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+  }
+
+  .step-box-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 0.9rem;
     letter-spacing: 1px;
-    color: var(--orange);
+    text-transform: uppercase;
+    color: var(--black);
     margin-bottom: 0.5rem;
   }
 
-  .step-desc {
-    font-size: 0.9rem;
+  .step-box-desc {
+    font-size: 0.82rem;
     color: var(--gray);
     line-height: 1.6;
   }
 
-  /* PLANES */
-  .planes-section { }
+  /* PLANES SECTION */
+  .planes-section {
+    padding: 6rem 4rem;
+    background: var(--black);
+    color: var(--white);
+  }
 
-  .planes-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-    gap: 1rem;
+  .planes-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.8rem;
+  }
+
+  .planes-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 4rem;
+    color: var(--white);
   }
 
   .planes-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .plan-card {
     border: 1px solid rgba(255,255,255,0.1);
-    padding: 2.5rem;
+  }
+
+  .plan-col {
+    padding: 3rem 2rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.3s;
+  }
+
+  .plan-col:last-child { border-right: none; }
+  .plan-col:hover { background: rgba(255,255,255,0.03); }
+
+  .plan-col.highlight {
+    background: rgba(212, 43, 43, 0.1);
+    border-color: rgba(212,43,43,0.3);
     position: relative;
-    transition: all 0.3s;
-    overflow: hidden;
   }
 
-  .plan-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--orange);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s;
-  }
-
-  .plan-card:hover::before { transform: scaleX(1); }
-  .plan-card:hover { border-color: rgba(232, 113, 10, 0.3); transform: translateY(-4px); }
-
-  .plan-card.featured {
-    background: rgba(232, 113, 10, 0.08);
-    border-color: rgba(232, 113, 10, 0.4);
-  }
-
-  .plan-card.featured::before { transform: scaleX(1); }
-
-  .plan-badge {
-    position: absolute;
-    top: 1.5rem; right: 1.5rem;
-    background: var(--orange);
+  .plan-tag {
+    display: inline-block;
+    background: var(--red);
     color: white;
-    font-family: 'Barlow Condensed', sans-serif;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .plan-name-big {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    line-height: 1;
+  }
+
+  .plan-price-big {
+    font-family: 'Anton', sans-serif;
+    font-size: 4.5rem;
+    color: var(--red);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  .plan-price-unit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 2rem;
+    margin-top: 0.3rem;
+  }
+
+  .plan-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 1.5rem 0;
+  }
+
+  .plan-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+
+  .plan-feature::before {
+    content: '—';
+    color: var(--red);
+    flex-shrink: 0;
+    font-weight: bold;
+  }
+
+  .plan-feature.included {
+    color: rgba(255,255,255,0.85);
+  }
+
+  .plan-feature.included::before { content: '✓'; }
+
+  .plan-guarantee {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.05);
+    font-family: 'Space Mono', monospace;
     font-size: 0.75rem;
     letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 0.2rem 0.7rem;
-  }
-
-  .plan-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 0.5rem;
-  }
-
-  .plan-product {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 1px;
-    margin-bottom: 0.5rem;
-  }
-
-  .plan-price {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.5rem;
-    color: var(--orange);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-
-  .plan-price span { font-size: 1.5rem; }
-
-  .plan-price-label {
-    font-size: 0.8rem;
-    color: var(--gray);
-    margin-bottom: 2rem;
-  }
-
-  .plan-features {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .plan-features li {
-    font-size: 0.9rem;
-    color: var(--gray);
-    display: flex;
-    gap: 0.7rem;
-    align-items: flex-start;
-    line-height: 1.4;
-  }
-
-  .plan-features li::before {
-    content: '✓';
-    color: var(--orange);
-    font-weight: bold;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  /* BENEFICIOS */
-  .beneficios-section {
-    background: rgba(0,0,0,0.2);
-  }
-
-  .ben-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    margin-top: 3rem;
-  }
-
-  .ben-item {
+    color: rgba(255,255,255,0.5);
     text-align: center;
-    padding: 2rem 1rem;
-    border: 1px solid rgba(255,255,255,0.07);
-    transition: all 0.3s;
   }
 
-  .ben-item:hover {
-    border-color: rgba(232, 113, 10, 0.3);
-    background: rgba(232, 113, 10, 0.05);
-  }
-
-  .ben-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .ben-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  .plan-guarantee strong {
+    display: block;
+    font-size: 1.5rem;
     color: var(--orange);
-    margin-bottom: 0.5rem;
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 2px;
+    margin-bottom: 0.2rem;
   }
 
-  .ben-desc {
-    font-size: 0.85rem;
-    color: var(--gray);
-    line-height: 1.6;
+  /* BENEFITS SECTION */
+  .benefits-section {
+    padding: 6rem 4rem;
+    background: var(--white);
   }
 
-  /* CONTACT FORM */
-  .contact-section {
-    background: linear-gradient(135deg, rgba(13,43,94,0.5) 0%, rgba(10,22,40,0.8) 100%);
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .contact-wrapper {
+  .benefits-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 5rem;
-    align-items: start;
+    align-items: center;
   }
 
-  .contact-info {}
+  .benefits-left {}
 
-  .contact-info h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 4vw, 3.5rem);
-    letter-spacing: 1px;
+  .benefits-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    letter-spacing: 2px;
     line-height: 1;
-    margin-bottom: 1rem;
+    color: var(--black);
+    margin-bottom: 2.5rem;
   }
 
-  .contact-info p {
-    color: var(--gray);
-    line-height: 1.8;
-    font-weight: 300;
-    margin-bottom: 2rem;
+  .benefits-title span { color: var(--red); }
+
+  .benefit-bar {
+    margin-bottom: 1.8rem;
   }
 
-  .contact-highlights {
+  .bar-header {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .ch-item {
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    font-size: 0.95rem;
-    color: var(--white);
+    margin-bottom: 0.5rem;
   }
 
-  .ch-item .icon {
-    width: 40px; height: 40px;
-    background: rgba(232, 113, 10, 0.15);
-    border: 1px solid rgba(232, 113, 10, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
+  .bar-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
   }
 
-  .price-tag {
-    background: rgba(232, 113, 10, 0.1);
-    border: 1px solid rgba(232, 113, 10, 0.3);
-    padding: 1.5rem;
-    margin-top: 2rem;
-    display: flex;
-    align-items: center;
+  .bar-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--red);
+  }
+
+  .bar-track {
+    height: 6px;
+    background: var(--gray-light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--blue), var(--red));
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .benefits-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
   }
 
-  .price-main {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
-    color: var(--orange);
-    line-height: 1;
+  .ben-box {
+    border: 1px solid var(--gray-light);
+    padding: 1.5rem;
+    transition: all 0.3s;
   }
 
-  .price-main small { font-size: 1.2rem; }
+  .ben-box:hover {
+    border-color: var(--red);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(212, 43, 43, 0.1);
+  }
 
-  .price-info {
-    font-size: 0.85rem;
+  .ben-box-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .ben-box-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 0.4rem;
+  }
+
+  .ben-box-desc {
+    font-size: 0.82rem;
     color: var(--gray);
     line-height: 1.5;
   }
 
-  .price-info strong { color: var(--white); display: block; margin-bottom: 0.2rem; }
-
-  /* FORM */
-  .contact-form-wrap {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 2.5rem;
-  }
-
-  .form-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 2rem;
-    color: var(--orange);
-  }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-  .form-group {
-    margin-bottom: 1.2rem;
+  /* CONTACT */
+  .contact-section {
+    background: var(--blue);
+    padding: 6rem 4rem;
     position: relative;
+    overflow: hidden;
   }
 
-  .form-group label {
+  .contact-section::before {
+    content: 'COTIZA';
+    position: absolute;
+    top: -1rem;
+    right: -2rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 18rem;
+    color: rgba(255,255,255,0.03);
+    letter-spacing: 10px;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 5rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-promo-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+  }
+
+  .contact-big-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-big-title .outline {
+    -webkit-text-stroke: 2px rgba(255,255,255,0.4);
+    color: transparent;
     display: block;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.8rem;
+  }
+
+  .contact-left p {
+    color: rgba(255,255,255,0.5);
+    line-height: 1.8;
+    font-size: 0.95rem;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+
+  .trust-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+  }
+
+  .trust-icon {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+
+  /* FORM DARK */
+  .form-dark {
+    background: rgba(0,0,0,0.2);
+    padding: 3rem;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .form-dark-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: white;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--red);
+    padding-bottom: 1rem;
+  }
+
+  .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .fg {
+    margin-bottom: 1.2rem;
+  }
+
+  .fg label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--gray);
+    color: rgba(255,255,255,0.4);
     margin-bottom: 0.4rem;
   }
 
-  .form-group input, .form-group select {
+  .fg input, .fg select {
     width: 100%;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
-    color: var(--white);
-    padding: 0.8rem 1rem;
-    font-family: 'Barlow', sans-serif;
+    color: white;
+    padding: 0.85rem 1rem;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.95rem;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.2s;
     appearance: none;
+    border-radius: 0;
   }
 
-  .form-group input:focus, .form-group select:focus {
-    border-color: var(--orange);
-  }
+  .fg input::placeholder { color: rgba(255,255,255,0.25); }
+  .fg input:focus, .fg select:focus { border-color: var(--red); }
 
-  .form-group input::placeholder { color: rgba(138,155,176,0.5); }
+  .pueblo-rel { position: relative; }
 
-  /* PUEBLO AUTOCOMPLETE */
-  .pueblo-wrapper { position: relative; }
-
-  .pueblo-input-wrap { position: relative; }
-
-  .pueblo-input-wrap input { padding-right: 2.5rem; }
-
-  .pueblo-input-wrap::after {
-    content: '▼';
+  .pueblo-drop2 {
     position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.7rem;
-    color: var(--gray);
-    pointer-events: none;
-  }
-
-  .pueblo-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0; right: 0;
-    background: #0D1B2E;
-    border: 1px solid rgba(232, 113, 10, 0.4);
+    top: 100%; left: 0; right: 0;
+    background: #0D1F3C;
+    border: 1px solid rgba(255,255,255,0.2);
     border-top: none;
-    max-height: 200px;
+    max-height: 180px;
     overflow-y: auto;
     z-index: 1000;
     display: none;
   }
 
-  .pueblo-dropdown.visible { display: block; }
+  .pueblo-drop2.open { display: block; }
 
-  .pueblo-option {
-    padding: 0.7rem 1rem;
+  .pd-opt {
+    padding: 0.65rem 1rem;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.6);
     cursor: pointer;
-    font-size: 0.9rem;
-    color: var(--gray);
-    transition: all 0.2s;
+    transition: all 0.15s;
   }
 
-  .pueblo-option:hover, .pueblo-option.selected {
-    background: rgba(232, 113, 10, 0.15);
-    color: var(--orange);
-  }
+  .pd-opt:hover { background: rgba(212,43,43,0.2); color: white; }
 
-  .pueblo-dropdown::-webkit-scrollbar { width: 4px; }
-  .pueblo-dropdown::-webkit-scrollbar-track { background: transparent; }
-  .pueblo-dropdown::-webkit-scrollbar-thumb { background: var(--orange); }
+  .pueblo-drop2::-webkit-scrollbar { width: 3px; }
+  .pueblo-drop2::-webkit-scrollbar-thumb { background: var(--red); }
 
-  .btn-submit {
+  .submit-red {
     width: 100%;
-    background: var(--orange);
+    background: var(--red);
     color: white;
     border: none;
-    padding: 1rem 2rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    padding: 1.1rem;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
     cursor: pointer;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
-    transition: all 0.3s;
+    transition: all 0.2s;
     margin-top: 0.5rem;
     position: relative;
     overflow: hidden;
   }
 
-  .btn-submit::before {
+  .submit-red:hover { background: #B82020; }
+
+  .submit-red::before {
     content: '';
     position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
     transition: left 0.4s;
   }
 
-  .btn-submit:hover::before { left: 100%; }
-  .btn-submit:hover { background: #FF8C00; }
+  .submit-red:hover::before { left: 100%; }
 
-  .form-note {
+  .privacy-note {
     text-align: center;
     font-size: 0.75rem;
-    color: var(--gray);
+    color: rgba(255,255,255,0.3);
     margin-top: 1rem;
+    font-family: 'Space Mono', monospace;
   }
 
-  /* SUCCESS STATE */
-  .success-msg {
+  .form-success2 {
     display: none;
     text-align: center;
-    padding: 3rem 2rem;
+    padding: 3rem;
+    color: white;
   }
 
-  .success-msg.show { display: block; }
-  .success-msg .check { font-size: 3rem; margin-bottom: 1rem; }
-  .success-msg h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--orange); }
-  .success-msg p { color: var(--gray); margin-top: 0.5rem; }
+  .form-success2.show { display: block; }
+
+  .form-success2 .big-stamp {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    display: inline-block;
+    border: 4px solid var(--orange);
+    padding: 0.5rem 2rem;
+    color: var(--orange);
+    transform: rotate(-5deg);
+    margin-bottom: 1.5rem;
+  }
+
+  .form-success2 p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
 
   /* FOOTER */
   footer {
-    background: rgba(0,0,0,0.5);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding: 2rem 4rem;
+    background: var(--black);
+    padding: 2.5rem 4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
     flex-wrap: wrap;
+    gap: 1rem;
+    border-top: 2px solid var(--red);
   }
 
-  footer p { color: var(--gray); font-size: 0.85rem; }
-  footer .logo-text { font-size: 1.2rem; }
+  footer .logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
 
-  /* SCROLL REVEAL */
-  .reveal {
+  footer .logo em { color: var(--orange); font-style: normal; }
+  footer p { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
+
+  /* REVEAL */
+  .rev {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease;
+    transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeInRight {
-    from { opacity: 0; transform: translateX(40px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-
-  /* WATER DROPS LEAK */
-  .leak-visual {
-    position: absolute;
-    right: 5%;
-    top: 8%;
-    width: 42%;
-    pointer-events: none;
-  }
-
-  .water-drop {
-    position: absolute;
-    background: rgba(100, 170, 255, 0.7);
-    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-    animation: drip linear infinite;
-  }
-
-  @keyframes drip {
-    0% { transform: scaleY(0.4) translateY(0); opacity: 0; }
-    10% { opacity: 1; }
-    85% { opacity: 1; }
-    100% { transform: scaleY(1.2) translateY(400px); opacity: 0; }
-  }
+  .rev.in { opacity: 1; transform: none; }
 
   /* MOBILE */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    nav ul { display: none; }
-    .hero { padding: 4rem 1.5rem; padding-top: 6rem; }
-    .leak-visual { display: none; }
-    section { padding: 3rem 1.5rem; }
-    .stats-bar { padding: 1.5rem; flex-wrap: wrap; }
-    .proceso-grid { grid-template-columns: 1fr; }
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 50vw; }
+    .hero-left { padding: 3rem 1.5rem; }
+    .process-section, .planes-section, .benefits-section, .contact-section { padding: 4rem 1.5rem; }
+    .steps-track { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .steps-track::before { display: none; }
     .planes-grid { grid-template-columns: 1fr; }
-    .ben-grid { grid-template-columns: repeat(2, 1fr); }
-    .contact-wrapper { grid-template-columns: 1fr; gap: 2rem; }
-    .form-row { grid-template-columns: 1fr; }
-    footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+    .plan-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .benefits-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .benefits-right { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .frow { grid-template-columns: 1fr; }
+    footer { flex-direction: column; padding: 2rem 1.5rem; text-align: center; }
   }
 </style>
 </head>
 <body>
 
-<canvas id="rain-canvas"></canvas>
-<div class="crack-overlay"></div>
-<div class="lightning"></div>
-
-<div class="content">
-
-<!-- NAV -->
 <nav>
-  <div class="logo-container" onclick="location.reload()">
-    <div class="logo-img-wrapper">
-      <img src="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png" alt="Logo" class="logo-img">
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-    </div>
-    <div class="logo-text">ROOFING <span>SERVICE</span></div>
-  </div>
-  <ul>
+  <div class="nav-logo">POWER<em>☀</em> SOLAR ROOFING</div>
+  <ul class="nav-links">
     <li><a href="#proceso">Proceso</a></li>
     <li><a href="#planes">Planes</a></li>
     <li><a href="#beneficios">Beneficios</a></li>
@@ -970,380 +1050,341 @@
 
 <!-- HERO -->
 <section class="hero">
-
-  <!-- Water drip visual -->
-  <div class="leak-visual" aria-hidden="true">
-    <svg viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;opacity:0.5">
-      <!-- Cracked concrete texture -->
-      <rect width="500" height="350" fill="#1a2535" rx="4"/>
-      <path d="M100 0 L90 80 L130 160 L80 280 L120 350" stroke="#8AA" stroke-width="2" fill="none" opacity="0.3"/>
-      <path d="M130 160 L190 195 L170 260" stroke="#8AA" stroke-width="1.5" fill="none" opacity="0.25"/>
-      <path d="M300 20 L290 100 L340 200 L300 350" stroke="#8AA" stroke-width="2" fill="none" opacity="0.3"/>
-      <path d="M290 100 L230 145 L250 240" stroke="#8AA" stroke-width="1.5" fill="none" opacity="0.25"/>
-      <path d="M200 0 L210 120 L180 220" stroke="#8AA" stroke-width="1" fill="none" opacity="0.2"/>
-      <!-- Water stain -->
-      <ellipse cx="100" cy="340" rx="30" ry="15" fill="rgba(100,160,255,0.15)"/>
-      <ellipse cx="300" cy="345" rx="25" ry="12" fill="rgba(100,160,255,0.12)"/>
-    </svg>
-
-    <!-- Animated drops -->
-    <div style="position:absolute;top:50px;left:22%;width:6px;height:15px;background:rgba(100,170,255,0.8);border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;animation:drip 2.5s 0.3s linear infinite;"></div>
-    <div style="position:absolute;top:50px;left:62%;width:8px;height:20px;background:rgba(100,170,255,0.7);border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;animation:drip 3s 0.8s linear infinite;"></div>
-    <div style="position:absolute;top:70px;left:40%;width:5px;height:12px;background:rgba(100,170,255,0.6);border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;animation:drip 2.8s 1.5s linear infinite;"></div>
-    <div style="position:absolute;top:40px;left:78%;width:6px;height:16px;background:rgba(100,170,255,0.75);border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;animation:drip 3.2s 0.5s linear infinite;"></div>
-  </div>
-
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="pulse-dot"></span>
-      Power Solar Roofing Services — Puerto Rico
+  <div class="hero-left">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Power Solar — Puerto Rico</div>
     </div>
 
-    <h1>
-      ¡ADIÓS<br>
-      <span class="accent">A LAS</span>
-      FILTRACIONES
+    <h1 class="hero-headline">
+      <span class="big-word">SELLAMOS</span>
+      <span class="red-word">TU TECHO.</span>
+      <span class="outline-word">GARANTIZADO.</span>
     </h1>
 
-    <p class="hero-sub">
-      Sellado profesional de techos con silicón de alta calidad Sherwin-Williams. 
-      Protección garantizada contra lluvia, calor y empozamientos. 
-      Financiamiento local desde <strong>$76/mes</strong>.
+    <p class="hero-desc">
+      Sellado profesional con silicón 100% Sherwin-Williams. Protección real contra filtraciones, grietas y empozamientos. Garantía de hasta 10 años.
     </p>
 
-    <div class="hero-cta-group">
-      <a href="#contacto" class="btn-primary">Cotizar Gratis →</a>
-      <a href="#proceso" class="btn-ghost">Ver el proceso</a>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-red">COTIZAR GRATIS →</a>
+      <a href="#proceso" class="btn-outline">VER PROCESO</a>
+    </div>
+
+    <div class="financing-tag">
+      <div>
+        <div class="price">$76</div>
+        <div style="font-size:0.7rem;color:rgba(255,255,255,0.35);font-family:'Space Mono',monospace">/MES</div>
+      </div>
+      <div class="price-info">
+        Financiamiento local aprobado rápido.<br>
+        Power Financial — Puerto Rico.
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="roof-visual">
+      <!-- Concrete texture background -->
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <defs>
+          <filter id="noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+            <feColorMatrix type="saturate" values="0"/>
+            <feBlend in="SourceGraphic" mode="multiply"/>
+          </filter>
+        </defs>
+        <rect width="100%" height="100%" fill="#2A2A2A" filter="url(#noise)" opacity="0.5"/>
+      </svg>
+
+      <!-- Animated cracks -->
+      <svg class="crack-svg" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <path class="crack-path" d="M200 0 L185 80 L225 180 L175 320 L220 500 L205 700 L185 800"/>
+        <path class="crack-path-2" d="M225 180 L290 210 L275 310 L320 380"/>
+        <path class="crack-path-3" d="M175 320 L120 360 L140 430"/>
+        <path class="crack-path" style="stroke:rgba(150,220,255,0.5);animation-delay:3s" d="M420 50 L400 150 L450 280 L410 450 L430 650"/>
+        <path class="crack-path-2" style="animation-delay:3.5s" d="M400 150 L340 190 L360 280"/>
+      </svg>
+
+      <!-- Water drops -->
+      <div class="drop-container">
+        <div class="drop" style="left:31%;width:5px;height:18px;animation-duration:2.2s;animation-delay:2.5s;top:28%"></div>
+        <div class="drop" style="left:37%;width:4px;height:14px;animation-duration:2.8s;animation-delay:3.2s;top:30%"></div>
+        <div class="drop" style="left:66%;width:6px;height:22px;animation-duration:2.5s;animation-delay:4s;top:23%"></div>
+        <div class="drop" style="left:68%;width:4px;height:16px;animation-duration:3s;animation-delay:4.8s;top:25%"></div>
+        <div class="drop" style="left:52%;width:5px;height:20px;animation-duration:2.7s;animation-delay:5.5s;top:15%"></div>
+      </div>
+
+      <!-- Stamp -->
+      <div class="stamp">CASO SELLADO</div>
+
+      <!-- Background text -->
+      <div class="overlay-text">FILTRACIÓN</div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat-item reveal">
-    <div class="stat-num">10+</div>
-    <div class="stat-label">Años de Garantía</div>
-  </div>
-  <div class="stat-item reveal" style="animation-delay:0.1s">
-    <div class="stat-num">$76</div>
-    <div class="stat-label">Desde / Mensual</div>
-  </div>
-  <div class="stat-item reveal" style="animation-delay:0.2s">
-    <div class="stat-num">100%</div>
-    <div class="stat-label">Silicón Premium</div>
-  </div>
-  <div class="stat-item reveal" style="animation-delay:0.3s">
-    <div class="stat-num">6</div>
-    <div class="stat-label">Pasos del Proceso</div>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">SELLADO DE TECHOS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">SILICÓN 100% SHERWIN-WILLIAMS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">GARANTÍA 10 AÑOS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">FINANCIAMIENTO LOCAL <span class="marquee-dot"></span></div>
+    <div class="marquee-item">CASO SELLADO <span class="marquee-dot"></span></div>
+    <div class="marquee-item">POWER SOLAR PR <span class="marquee-dot"></span></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="marquee-item">SELLADO DE TECHOS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">SILICÓN 100% SHERWIN-WILLIAMS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">GARANTÍA 10 AÑOS <span class="marquee-dot"></span></div>
+    <div class="marquee-item">FINANCIAMIENTO LOCAL <span class="marquee-dot"></span></div>
+    <div class="marquee-item">CASO SELLADO <span class="marquee-dot"></span></div>
+    <div class="marquee-item">POWER SOLAR PR <span class="marquee-dot"></span></div>
   </div>
 </div>
 
-<!-- PROCESO -->
-<section class="proceso-section" id="proceso">
-  <div class="section-tag">¿Cómo Trabajamos?</div>
-  <div class="section-title">PROCESO DE SELLADO</div>
-  <p class="section-desc">Un proceso riguroso de 6 pasos que garantiza que tu techo quede protegido para siempre.</p>
+<!-- PROCESS -->
+<section class="process-section" id="proceso">
+  <div class="process-header">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:3px;color:var(--red);margin-bottom:0.5rem">CÓMO TRABAJAMOS</div>
+      <div class="big-label">PROCESO DE<br><span>SELLADO</span></div>
+    </div>
+    <p style="color:var(--gray);max-width:350px;font-size:0.95rem;line-height:1.8">6 pasos rigurosos que garantizan que tu techo quede protegido para siempre.</p>
+  </div>
 
-  <div class="proceso-grid">
-    <div class="proceso-card reveal">
-      <div class="step-num">01</div>
-      <div class="step-icon">🧹</div>
-      <div class="step-title">Lavado y Remoción</div>
-      <p class="step-desc">Limpieza de las placas solares, calentadores y cisternas. Preparación total de la superficie.</p>
+  <div class="steps-track">
+    <div class="step-box active rev">
+      <div class="step-circle">1</div>
+      <div class="step-box-title">Lavado</div>
+      <p class="step-box-desc">Limpieza completa de equipos y superficie del techo.</p>
     </div>
-    <div class="proceso-card reveal" style="transition-delay:0.1s">
-      <div class="step-num">02</div>
-      <div class="step-icon">🔍</div>
-      <div class="step-title">Remoción de Sellador</div>
-      <p class="step-desc">Identificamos áreas de filtración con el cliente. Si hay Poliuretano, Polyester o Danosa, se requiere remoción total.</p>
+    <div class="step-box rev" style="transition-delay:0.1s">
+      <div class="step-circle">2</div>
+      <div class="step-box-title">Remoción</div>
+      <p class="step-box-desc">Identificación y remoción del sellador existente.</p>
     </div>
-    <div class="proceso-card reveal" style="transition-delay:0.2s">
-      <div class="step-num">03</div>
-      <div class="step-icon">🔧</div>
-      <div class="step-title">Corrección</div>
-      <p class="step-desc">Se corrigen grietas con One Flash. Se mejoran empozamientos mayores a ¼". Se trabajan drenajes y anclajes.</p>
+    <div class="step-box rev" style="transition-delay:0.2s">
+      <div class="step-circle">3</div>
+      <div class="step-box-title">Corrección</div>
+      <p class="step-box-desc">Reparación de grietas, empozamientos y drenajes.</p>
     </div>
-    <div class="proceso-card reveal" style="transition-delay:0.3s">
-      <div class="step-num">04</div>
-      <div class="step-icon">🪣</div>
-      <div class="step-title">Primer</div>
-      <p class="step-desc">Se aplica primer sobre toda la superficie (800 p² por paila) para garantizar la adhesión perfecta.</p>
+    <div class="step-box rev" style="transition-delay:0.3s">
+      <div class="step-circle">4</div>
+      <div class="step-box-title">Primer</div>
+      <p class="step-box-desc">Aplicación de primer sobre toda la superficie.</p>
     </div>
-    <div class="proceso-card reveal" style="transition-delay:0.4s">
-      <div class="step-num">05</div>
-      <div class="step-icon">🎨</div>
-      <div class="step-title">Silicone</div>
-      <p class="step-desc">Aplicación de silicón a 30mm de espesor (225 p² por paila). No se bate con taladro para mantener propiedades.</p>
+    <div class="step-box rev" style="transition-delay:0.4s">
+      <div class="step-circle">5</div>
+      <div class="step-box-title">Silicone</div>
+      <p class="step-box-desc">Silicón a 30mm de espesor con aplicación precisa.</p>
     </div>
-    <div class="proceso-card reveal" style="transition-delay:0.5s">
-      <div class="step-num">06</div>
-      <div class="step-icon">⚡</div>
-      <div class="step-title">Reinstalación</div>
-      <p class="step-desc">Reinstalación de placas, calentadores y cisternas. Validación de que el sistema solar opere al 100%.</p>
+    <div class="step-box rev" style="transition-delay:0.5s">
+      <div class="step-circle">6</div>
+      <div class="step-box-title">Reinstalación</div>
+      <p class="step-box-desc">Reinstalación y validación del sistema solar al 100%.</p>
     </div>
   </div>
 </section>
 
 <!-- PLANES -->
-<section id="planes">
-  <div class="planes-header">
-    <div>
-      <div class="section-tag">Elige tu Protección</div>
-      <div class="section-title">PLANES DE SELLADO</div>
-    </div>
-    <p class="section-desc" style="max-width:350px">Tres opciones diseñadas para proteger tu inversión a largo plazo.</p>
-  </div>
-
+<section class="planes-section" id="planes">
+  <div class="planes-label">Elige tu Protección</div>
+  <div class="planes-title">PLANES DE<br>SELLADO</div>
   <div class="planes-grid">
-    <div class="plan-card reveal">
-      <div class="plan-name">Plan Base</div>
-      <div class="plan-product">DANOSA</div>
-      <div class="plan-price"><span>$</span>—</div>
-      <div class="plan-price-label">Precio según área · Garantía 5 años</div>
-      <ul class="plan-features">
-        <li>Garantía del fabricante incluida</li>
-        <li>Sin restricciones de aplicación</li>
-        <li>Remoción sellador existente: $1.95/p²</li>
-        <li>Mantenimiento cada 2 años</li>
-        <li>Visita técnica sin costo (dentro de garantía)</li>
-        <li>Mantenimiento solar: $550</li>
-      </ul>
+    <div class="plan-col rev">
+      <div class="plan-brand">Danosa</div>
+      <div class="plan-name-big">DANOSA</div>
+      <div class="plan-price-big">— —</div>
+      <div class="plan-price-unit">Precio según área del techo</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature included">Garantía del fabricante</div>
+      <div class="plan-feature included">Sin restricciones de aplicación</div>
+      <div class="plan-feature">Mantenimiento solar: $550</div>
+      <div class="plan-feature">Mantenimiento cada 2 años</div>
+      <div class="plan-feature included">Visita técnica sin costo</div>
+      <div class="plan-guarantee"><strong>5 AÑOS</strong>Garantía mano de obra</div>
     </div>
 
-    <div class="plan-card featured reveal" style="transition-delay:0.15s">
-      <div class="plan-badge">Popular</div>
-      <div class="plan-name">Silicone Premium</div>
-      <div class="plan-product">SHERWIN-WILLIAMS</div>
-      <div class="plan-price"><span>$</span>7<span style="font-size:1.5rem">/p²</span></div>
-      <div class="plan-price-label">Garantía de mano de obra 10 años</div>
-      <ul class="plan-features">
-        <li>Garantía del fabricante limitada de por vida</li>
-        <li>Garantía mano de obra 10 años</li>
-        <li>Visita técnica incluida</li>
-        <li>Remoción sellador existente: $1.95/p²</li>
-        <li>Mantenimiento cada 2 años</li>
-        <li>Mantenimiento solar: $550</li>
-      </ul>
+    <div class="plan-col highlight rev" style="transition-delay:0.15s">
+      <div class="plan-tag">Más Popular</div>
+      <div class="plan-brand">Sherwin-Williams</div>
+      <div class="plan-name-big">SILICONE PREMIUM</div>
+      <div class="plan-price-big">$7</div>
+      <div class="plan-price-unit">por pie cuadrado · p²</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature included">Garantía de fabricante — de por vida</div>
+      <div class="plan-feature included">Visita técnica incluida</div>
+      <div class="plan-feature included">Resistente UV y todas las temperaturas</div>
+      <div class="plan-feature">Mantenimiento solar: $550</div>
+      <div class="plan-feature">No aplicable en áreas inclinadas</div>
+      <div class="plan-guarantee"><strong>10 AÑOS</strong>Garantía mano de obra</div>
     </div>
 
-    <div class="plan-card reveal" style="transition-delay:0.3s">
-      <div class="plan-name">Silicone Executive</div>
-      <div class="plan-product">SHERWIN-WILLIAMS</div>
-      <div class="plan-price"><span>$</span>8<span style="font-size:1.5rem">/p²</span></div>
-      <div class="plan-price-label">Todo incluido · Máxima protección</div>
-      <ul class="plan-features">
-        <li>Garantía del fabricante limitada de por vida</li>
-        <li>Garantía mano de obra 10 años</li>
-        <li>Visita técnica incluida</li>
-        <li>Remoción sellador existente: $1.95/p²</li>
-        <li>Mantenimiento incluido (5 visitas en 10 años)</li>
-        <li>Mantenimiento solar incluido en garantía</li>
-      </ul>
+    <div class="plan-col rev" style="transition-delay:0.3s">
+      <div class="plan-brand">Sherwin-Williams</div>
+      <div class="plan-name-big">SILICONE EXECUTIVE</div>
+      <div class="plan-price-big">$8</div>
+      <div class="plan-price-unit">por pie cuadrado · p²</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature included">Todo lo de Premium incluido</div>
+      <div class="plan-feature included">Mantenimiento incluido en garantía</div>
+      <div class="plan-feature included">5 visitas de mantenimiento en 10 años</div>
+      <div class="plan-feature included">Limpieza solar incluida</div>
+      <div class="plan-feature included">Máxima protección total</div>
+      <div class="plan-guarantee"><strong>10 AÑOS</strong>Garantía + Mantenimiento</div>
     </div>
   </div>
 </section>
 
-<!-- BENEFICIOS -->
-<section class="beneficios-section" id="beneficios">
-  <div class="section-tag">¿Por qué Elegirnos?</div>
-  <div class="section-title">BENEFICIOS DEL SELLADO</div>
+<!-- BENEFITS -->
+<section class="benefits-section" id="beneficios">
+  <div class="benefits-inner">
+    <div class="benefits-left rev">
+      <div style="font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:3px;color:var(--red);margin-bottom:0.8rem">POR QUÉ ELEGIRNOS</div>
+      <div class="benefits-title">BENEFICIOS DEL<br><span>SILICÓN</span></div>
 
-  <div class="ben-grid">
-    <div class="ben-item reveal">
-      <div class="ben-icon">📐</div>
-      <div class="ben-title">Acabado Superior</div>
-      <p class="ben-desc">Excelente nivelación y acabado profesional en cada aplicación.</p>
+      <div class="benefit-bar">
+        <div class="bar-header">
+          <span class="bar-name">RESISTENCIA UV</span>
+          <span class="bar-val">100%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="100"></div></div>
+      </div>
+      <div class="benefit-bar">
+        <div class="bar-header">
+          <span class="bar-name">ADHESIÓN</span>
+          <span class="bar-val">98%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="98"></div></div>
+      </div>
+      <div class="benefit-bar">
+        <div class="bar-header">
+          <span class="bar-name">DURABILIDAD</span>
+          <span class="bar-val">95%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="95"></div></div>
+      </div>
+      <div class="benefit-bar">
+        <div class="bar-header">
+          <span class="bar-name">IMPERMEABILIDAD</span>
+          <span class="bar-val">100%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" data-width="100"></div></div>
+      </div>
     </div>
-    <div class="ben-item reveal" style="transition-delay:0.1s">
-      <div class="ben-icon">🚿</div>
-      <div class="ben-title">Mantenimiento Simple</div>
-      <p class="ben-desc">Solo requiere lavado para mantener sus propiedades año tras año.</p>
-    </div>
-    <div class="ben-item reveal" style="transition-delay:0.2s">
-      <div class="ben-icon">☀️</div>
-      <div class="ben-title">Resistente UV</div>
-      <p class="ben-desc">Resistente a rayos ultravioleta y a todas las temperaturas de Puerto Rico.</p>
-    </div>
-    <div class="ben-item reveal" style="transition-delay:0.3s">
-      <div class="ben-icon">🖌️</div>
-      <div class="ben-title">Una Sola Capa</div>
-      <p class="ben-desc">Aplicación eficiente en una sola capa con máxima efectividad.</p>
-    </div>
-    <div class="ben-item reveal" style="transition-delay:0.4s">
-      <div class="ben-icon">🪣</div>
-      <div class="ben-title">Alto en Sólidos</div>
-      <p class="ben-desc">Producto espeso con alto contenido de sólidos por volumen.</p>
-    </div>
-    <div class="ben-item reveal" style="transition-delay:0.5s">
-      <div class="ben-icon">⏱️</div>
-      <div class="ben-title">Duradero</div>
-      <p class="ben-desc">Rendimiento garantizado por años con mantenimiento mínimo.</p>
-    </div>
-    <div class="ben-item reveal" style="transition-delay:0.6s">
-      <div class="ben-icon">🧱</div>
-      <div class="ben-title">Adhesión Total</div>
-      <p class="ben-desc">Excelente adhesión a la mayoría de los materiales para techos.</p>
-    </div>
-    <div class="ben-item reveal" style="transition-delay:0.7s">
-      <div class="ben-icon">💧</div>
-      <div class="ben-title">100% Silicona</div>
-      <p class="ben-desc">Producto de silicona pura para máxima protección contra el agua.</p>
+
+    <div class="benefits-right">
+      <div class="ben-box rev">
+        <div class="ben-box-icon">☀️</div>
+        <div class="ben-box-name">RESISTENTE UV</div>
+        <p class="ben-box-desc">Protección total contra rayos ultravioleta y todas las temperaturas.</p>
+      </div>
+      <div class="ben-box rev" style="transition-delay:0.1s">
+        <div class="ben-box-icon">💧</div>
+        <div class="ben-box-name">100% SILICONA</div>
+        <p class="ben-box-desc">Silicona pura para máxima impermeabilización y sellado.</p>
+      </div>
+      <div class="ben-box rev" style="transition-delay:0.2s">
+        <div class="ben-box-icon">🎨</div>
+        <div class="ben-box-name">UNA SOLA CAPA</div>
+        <p class="ben-box-desc">Aplicación eficiente en una sola capa con máximo rendimiento.</p>
+      </div>
+      <div class="ben-box rev" style="transition-delay:0.3s">
+        <div class="ben-box-icon">⏱️</div>
+        <div class="ben-box-name">DURADERO</div>
+        <p class="ben-box-desc">Rendimiento garantizado por años con mantenimiento mínimo.</p>
+      </div>
+      <div class="ben-box rev" style="transition-delay:0.4s">
+        <div class="ben-box-icon">🧱</div>
+        <div class="ben-box-name">ADHESIÓN TOTAL</div>
+        <p class="ben-box-desc">Se adhiere a la mayoría de los materiales para techos.</p>
+      </div>
+      <div class="ben-box rev" style="transition-delay:0.5s">
+        <div class="ben-box-icon">🧹</div>
+        <div class="ben-box-name">FÁCIL MANTENER</div>
+        <p class="ben-box-desc">Solo requiere lavado simple para mantener sus propiedades.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section class="contact-section" id="contacto">
-  <div class="contact-wrapper">
-    <div class="contact-info reveal">
-      <div class="section-tag">Empieza Hoy</div>
-      <h2>COTIZACIÓN<br>100% GRATIS</h2>
-      <p>Un técnico certificado visitará tu residencia sin costo. Evaluamos tu techo y te entregamos una cotización detallada. Sin compromisos.</p>
+  <div class="contact-grid">
+    <div class="contact-left rev">
+      <div class="contact-promo-tag">EMPIEZA HOY MISMO</div>
+      <div class="contact-big-title">
+        COTIZA<br>
+        <span class="outline">GRATIS.</span>
+      </div>
+      <p>Un técnico certificado visitará tu residencia sin costo. Te entregamos una cotización detallada. Sin compromisos. Aprobación rápida para tu financiamiento.</p>
 
-      <div class="contact-highlights">
-        <div class="ch-item">
-          <div class="icon">✅</div>
+      <div class="trust-items">
+        <div class="trust-item">
+          <div class="trust-icon">✅</div>
           <span>Visita técnica sin costo adicional</span>
         </div>
-        <div class="ch-item">
-          <div class="icon">⚡</div>
+        <div class="trust-item">
+          <div class="trust-icon">⚡</div>
           <span>Respuesta en menos de 24 horas</span>
         </div>
-        <div class="ch-item">
-          <div class="icon">🏦</div>
-          <span>Financiamiento local fácil y accesible</span>
+        <div class="trust-item">
+          <div class="trust-icon">💳</div>
+          <span>Financiamiento desde $76/mes — Power Financial</span>
         </div>
-        <div class="ch-item">
-          <div class="icon">🛡️</div>
-          <span>Garantía de hasta 10 años en mano de obra</span>
-        </div>
-      </div>
-
-      <div class="price-tag">
-        <div>
-          <div style="font-size:0.75rem;color:var(--gray);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.3rem">Pagos desde</div>
-          <div class="price-main"><small>$</small>76</div>
-          <div style="font-size:0.75rem;color:var(--gray)">mensuales</div>
-        </div>
-        <div class="price-info">
-          <strong>Financiamiento con Power Financial</strong>
-          Proceso simple y aprobación rápida para residentes de Puerto Rico
+        <div class="trust-item">
+          <div class="trust-icon">🛡️</div>
+          <span>Garantía hasta 10 años en mano de obra</span>
         </div>
       </div>
     </div>
 
-    <div class="contact-form-wrap reveal" style="transition-delay:0.2s">
-      <div id="form-content">
-        <div class="form-title">→ SOLICITA TU COTIZACIÓN</div>
-        <form id="contact-form" onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Nombre Completo</label>
+    <div class="form-dark rev" style="transition-delay:0.2s">
+      <div id="form2-content">
+        <div class="form-dark-title">SOLICITAR COTIZACIÓN</div>
+        <form onsubmit="handleForm2(event)">
+          <div class="frow">
+            <div class="fg">
+              <label>Nombre</label>
               <input type="text" placeholder="Tu nombre" required>
             </div>
-            <div class="form-group">
+            <div class="fg">
               <label>Teléfono</label>
               <input type="tel" placeholder="(787) 000-0000" required>
             </div>
           </div>
-          <div class="form-group">
-            <label>Correo Electrónico</label>
+          <div class="fg">
+            <label>Email</label>
             <input type="email" placeholder="tu@email.com" required>
           </div>
-          <div class="form-group pueblo-wrapper">
+          <div class="fg pueblo-rel">
             <label>Pueblo</label>
-            <div class="pueblo-input-wrap">
-              <input type="text" id="pueblo-input" placeholder="Escribe las primeras 2 letras..." autocomplete="off" required readonly>
-            </div>
-            <input type="hidden" id="pueblo-value" name="pueblo">
-            <div class="pueblo-dropdown" id="pueblo-dropdown"></div>
+            <input type="text" id="p2-input" placeholder="Escribe las primeras 2 letras de tu pueblo..." autocomplete="off" required>
+            <input type="hidden" id="p2-value">
+            <div class="pueblo-drop2" id="p2-drop"></div>
           </div>
-          <button type="submit" class="btn-submit">SOLICITAR COTIZACIÓN GRATIS →</button>
+          <button type="submit" class="submit-red">SOLICITAR COTIZACIÓN GRATIS →</button>
         </form>
-        <p class="form-note">🔒 Tu información es 100% confidencial. No spam.</p>
+        <p class="privacy-note">🔒 Información confidencial — Sin spam</p>
       </div>
-      <div class="success-msg" id="success-msg">
-        <div class="check">✅</div>
-        <h3>¡CASO SELLADO!</h3>
-        <p>Recibimos tu solicitud. Un técnico te contactará en menos de 24 horas.</p>
+      <div class="form-success2" id="success2">
+        <div class="big-stamp">¡CASO SELLADO!</div>
+        <p>Tu solicitud fue recibida. Un técnico certificado te contactará en menos de 24 horas para coordinar tu visita gratuita.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="logo-container" style="justify-content: flex-start;">
-    <div class="logo-img-wrapper" style="width: 40px; height: 40px;">
-      <img src="https://i.postimg.cc/PfDjG87n/logo-roofing-service.png" alt="Logo" class="logo-img">
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-      <div class="shatter-piece"></div>
-    </div>
-    <div class="logo-text" style="font-size: 1.2rem;">ROOFING <span>SERVICE</span></div>
-  </div>
-  <p>© 2024 Power Solar Roofing – Todos los derechos reservados.</p>
+  <div class="logo">POWER<em>☀</em> SOLAR ROOFING</div>
+  <p>© 2025 Power Solar Roofing Services — Puerto Rico</p>
+  <p style="color:var(--red);font-weight:700">¡CASO SELLADO!</p>
 </footer>
 
-</div>
-
 <script>
-// RAIN CANVAS
-const canvas = document.getElementById('rain-canvas');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-const drops = [];
-for(let i = 0; i < 150; i++) {
-  drops.push({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    length: Math.random() * 20 + 8,
-    speed: Math.random() * 4 + 6,
-    opacity: Math.random() * 0.6 + 0.2,
-    angle: 15
-  });
-}
-
-function animateRain() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drops.forEach(drop => {
-    ctx.beginPath();
-    ctx.strokeStyle = `rgba(150, 200, 255, ${drop.opacity})`;
-    ctx.lineWidth = 0.8;
-    const rad = drop.angle * Math.PI / 180;
-    ctx.moveTo(drop.x, drop.y);
-    ctx.lineTo(drop.x + drop.length * Math.sin(rad), drop.y + drop.length * Math.cos(rad));
-    ctx.stroke();
-    drop.y += drop.speed;
-    drop.x += drop.speed * Math.sin(rad) * 0.5;
-    if(drop.y > canvas.height) {
-      drop.y = -drop.length;
-      drop.x = Math.random() * canvas.width;
-    }
-  });
-  requestAnimationFrame(animateRain);
-}
-animateRain();
-
-// SCROLL REVEAL
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if(e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.1 });
-reveals.forEach(el => observer.observe(el));
-
-// PUEBLO AUTOCOMPLETE
-const pueblos = [
+// PUEBLO AUTOCOMPLETE 2
+const pueblos2 = [
   "Adjuntas","Aguada","Aguadilla","Aguas Buenas","Aibonito","Añasco","Arecibo","Arroyo",
   "Barceloneta","Barranquitas","Bayamón","Cabo Rojo","Caguas","Camuy","Canóvanas",
   "Carolina","Cataño","Cayey","Ceiba","Ciales","Cidra","Coamo","Comerío","Corozal",
@@ -1357,71 +1398,74 @@ const pueblos = [
   "Yabucoa","Yauco"
 ];
 
-const input = document.getElementById('pueblo-input');
-const dropdown = document.getElementById('pueblo-dropdown');
-const hiddenValue = document.getElementById('pueblo-value');
+const p2input = document.getElementById('p2-input');
+const p2drop = document.getElementById('p2-drop');
+const p2val = document.getElementById('p2-value');
 
-input.removeAttribute('readonly');
-
-input.addEventListener('input', function() {
+p2input.addEventListener('input', function() {
   const val = this.value.toLowerCase().trim();
-  dropdown.innerHTML = '';
-  if(val.length < 2) { dropdown.classList.remove('visible'); return; }
-  const filtered = pueblos.filter(p => p.toLowerCase().includes(val));
-  if(filtered.length === 0) { dropdown.classList.remove('visible'); return; }
+  p2drop.innerHTML = '';
+  if(val.length < 2) { p2drop.classList.remove('open'); return; }
+  const filtered = pueblos2.filter(p => p.toLowerCase().includes(val));
+  if(!filtered.length) { p2drop.classList.remove('open'); return; }
   filtered.forEach(pueblo => {
-    const opt = document.createElement('div');
-    opt.className = 'pueblo-option';
-    opt.textContent = pueblo;
-    opt.addEventListener('click', () => {
-      input.value = pueblo;
-      hiddenValue.value = pueblo;
-      dropdown.classList.remove('visible');
+    const d = document.createElement('div');
+    d.className = 'pd-opt';
+    d.textContent = pueblo;
+    d.addEventListener('click', () => {
+      p2input.value = pueblo;
+      p2val.value = pueblo;
+      p2drop.classList.remove('open');
     });
-    dropdown.appendChild(opt);
+    p2drop.appendChild(d);
   });
-  dropdown.classList.add('visible');
+  p2drop.classList.add('open');
 });
 
-document.addEventListener('click', (e) => {
-  if(!e.target.closest('.pueblo-wrapper')) dropdown.classList.remove('visible');
+document.addEventListener('click', e => {
+  if(!e.target.closest('.pueblo-rel')) p2drop.classList.remove('open');
 });
 
-// FORM SUBMIT
-function handleSubmit(e) {
+function handleForm2(e) {
   e.preventDefault();
-  document.getElementById('form-content').style.display = 'none';
-  document.getElementById('success-msg').classList.add('show');
+  document.getElementById('form2-content').style.display = 'none';
+  document.getElementById('success2').classList.add('show');
 }
 
-// COUNTER ANIMATION
-function animateCounter(el, target) {
-  let current = 0;
-  const increment = target / 50;
-  const timer = setInterval(() => {
-    current = Math.min(current + increment, target);
-    el.textContent = Number.isInteger(target) ? Math.floor(current) : current.toFixed(0);
-    if(current >= target) clearInterval(timer);
-  }, 30);
-}
-</script>
-<script>
-  // Trigger crack animation on logo periodically
-  function triggerLogoCrack() {
-    const logos = document.querySelectorAll('.logo-img');
-    logos.forEach(logo => {
-      logo.classList.add('cracking');
-      setTimeout(() => {
-        logo.classList.remove('cracking');
-      }, 1000);
-    });
-  }
+// SCROLL REVEAL
+const revEls = document.querySelectorAll('.rev');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('in');
+      // Animate bars if present
+      e.target.querySelectorAll('.bar-fill').forEach(bar => {
+        const w = bar.dataset.width;
+        bar.style.width = w + '%';
+      });
+    }
+  });
+}, { threshold: 0.1 });
+revEls.forEach(el => obs.observe(el));
 
-  // Initial trigger after 3 seconds
-  setTimeout(triggerLogoCrack, 3000);
-  
-  // Periodic trigger every 12 seconds
-  setInterval(triggerLogoCrack, 12000);
+// Also trigger bars for parent reveal
+document.querySelectorAll('.benefit-bar').forEach(bar => {
+  const fill = bar.querySelector('.bar-fill');
+  const obsBar = new IntersectionObserver(entries => {
+    if(entries[0].isIntersecting) {
+      fill.style.width = fill.dataset.width + '%';
+    }
+  }, { threshold: 0.5 });
+  obsBar.observe(bar);
+});
+
+// Step hover
+document.querySelectorAll('.step-box').forEach(step => {
+  step.addEventListener('mouseenter', function() {
+    document.querySelectorAll('.step-box').forEach(s => s.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
 </script>
 </body>
 </html>
