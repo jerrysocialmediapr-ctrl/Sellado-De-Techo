@@ -163,42 +163,60 @@
   }
 
   .logo-half.left {
-    clip-path: polygon(0 0, 48% 0, 52% 20%, 45% 40%, 55% 60%, 48% 80%, 52% 100%, 0 100%);
-    animation: crackLeft 3s infinite ease-in-out;
+    clip-path: polygon(0 0, 48% 0, 52% 15%, 45% 30%, 55% 45%, 48% 60%, 52% 75%, 45% 90%, 50% 100%, 0 100%);
+    animation: crackLeft 4s infinite ease-in-out;
   }
 
   .logo-half.right {
-    clip-path: polygon(48% 0, 100% 0, 100% 100%, 52% 100%, 48% 80%, 55% 60%, 45% 40%, 52% 20%);
-    animation: crackRight 3s infinite ease-in-out;
+    clip-path: polygon(48% 0, 100% 0, 100% 100%, 50% 100%, 45% 90%, 52% 75%, 48% 60%, 55% 45%, 45% 30%, 52% 15%);
+    animation: crackRight 4s infinite ease-in-out;
   }
 
   @keyframes crackLeft {
     0%, 100% { transform: translate(0, 0) rotate(0); }
-    50% { transform: translate(-5px, 0) rotate(-2deg); }
+    40%, 60% { transform: translate(-8px, 0) rotate(-3deg); }
   }
 
   @keyframes crackRight {
     0%, 100% { transform: translate(0, 0) rotate(0); }
-    50% { transform: translate(5px, 0) rotate(2deg); }
+    40%, 60% { transform: translate(8px, 0) rotate(3deg); }
   }
 
-  .logo-crack-line {
+  .logo-rain-container {
     position: absolute;
-    top: 0; left: 50%;
-    width: 2px; height: 100%;
-    background: var(--red);
+    top: 10%; left: 50%;
+    width: 20px; height: 80%;
     transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
     opacity: 0;
     transition: opacity 0.3s;
-    z-index: 2;
-    filter: drop-shadow(0 0 5px var(--red));
-    animation: crackLineShow 3s infinite ease-in-out;
+    animation: rainShow 4s infinite ease-in-out;
   }
 
-  @keyframes crackLineShow {
-    0%, 100% { opacity: 0; transform: translateX(-50%) scaleY(0); }
-    40%, 60% { opacity: 1; transform: translateX(-50%) scaleY(1); }
+  @keyframes rainShow {
+    0%, 30%, 70%, 100% { opacity: 0; }
+    40%, 60% { opacity: 1; }
   }
+
+  .logo-drop {
+    position: absolute;
+    width: 2px;
+    height: 8px;
+    background: #64b5f6;
+    border-radius: 2px;
+    animation: logoRainFall 0.8s infinite linear;
+    left: var(--x);
+    top: -10px;
+    animation-delay: var(--d);
+  }
+
+  @keyframes logoRainFall {
+    to { transform: translateY(60px); }
+  }
+
+  .logo-crack-line { display: none; } /* Hide the old red line */
 
   .nav-links {
     display: flex;
@@ -1138,7 +1156,13 @@
   <div class="logo-crack-wrapper" onclick="location.reload()">
     <div class="logo-half left"></div>
     <div class="logo-half right"></div>
-    <div class="logo-crack-line"></div>
+    <div class="logo-rain-container">
+      <div class="logo-drop" style="--x: 20%; --d: 0s;"></div>
+      <div class="logo-drop" style="--x: 50%; --d: 0.2s;"></div>
+      <div class="logo-drop" style="--x: 80%; --d: 0.4s;"></div>
+      <div class="logo-drop" style="--x: 35%; --d: 0.1s;"></div>
+      <div class="logo-drop" style="--x: 65%; --d: 0.3s;"></div>
+    </div>
   </div>
   <ul class="nav-links">
     <li><a href="#proceso">Proceso</a></li>
@@ -1480,7 +1504,11 @@
   <div class="logo-crack-wrapper" onclick="location.reload()" style="width: 50px; height: 50px;">
     <div class="logo-half left"></div>
     <div class="logo-half right"></div>
-    <div class="logo-crack-line"></div>
+    <div class="logo-rain-container">
+      <div class="logo-drop" style="--x: 20%; --d: 0s;"></div>
+      <div class="logo-drop" style="--x: 50%; --d: 0.2s;"></div>
+      <div class="logo-drop" style="--x: 80%; --d: 0.4s;"></div>
+    </div>
   </div>
   <p>© 2025 Power Solar Roofing Services — Puerto Rico</p>
   <p style="color:var(--red);font-weight:700">¡CASO SELLADO!</p>
